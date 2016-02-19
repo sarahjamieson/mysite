@@ -7,11 +7,20 @@
 
 {% if primers %}
     <p>Found {{ primers|length }} primer{{ primers|pluralize }}.</p>
-    <ul>
+    <table style="width:100%" border="1">
+        <tr>
+            <td>Exon</td>
+            <td>Direction</td>
+            <td>Primer sequence</td>
+        </tr>
         {% for primer in primers %}
-        <li>{{ primer.exon }} {{primer.direction}} {{primer.primer_seq }}</li>
+        <tr>
+            <td>{{ primer.exon }}</td>
+            <td>{{ primer.direction }}</td>
+            <td>{{ primer.primer_seq }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No primers matched your search criteria.</p>
 {% endif %}
