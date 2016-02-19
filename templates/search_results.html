@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if primers %}
+    <p>Found {{ primers|length }} primer{{ primers|pluralize }}.</p>
+    <ul>
+        {% for primer in primers %}
+        <li>{{ primer.exon }} {{primer.direction}} {{primer.primer_seq }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No primers matched your search criteria.</p>
+{% endif %}
+
+</body>
+</html>
