@@ -1,5 +1,5 @@
 import warnings
-from getprimers import ExcelToSQL
+from getprimers2 import ExcelToSQL
 warnings.simplefilter("ignore", UserWarning)
 
 """Module takes an excel file and database as inputs and runs the ExcelToSQL class to add excel files to a database."""
