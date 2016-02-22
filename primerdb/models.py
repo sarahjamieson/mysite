@@ -11,11 +11,11 @@ class Primers(models.Model):
     version = models.IntegerField()
     primer_seq = models.CharField(max_length=30)
     chrom = models.CharField(max_length=2)
-    start = models.CharField(max_length=30)
-    end = models.CharField(max_length=30)
+    start = models.CharField(max_length=30, default=None)
+    end = models.CharField(max_length=30, default=None)
     m13_tag = models.CharField(max_length=1)
     batch = models.CharField(max_length=30)
-    project = models.CharField(max_length=200)
+    project = models.CharField(max_length=200, default="")
     order_date = models.CharField(max_length=20)
     frag_size = models.IntegerField()
     anneal_temp = models.CharField(max_length=10)
@@ -35,9 +35,13 @@ class Primers(models.Model):
         app_label = 'primerdb'
         db_table = 'Primers'
 
-    def show_link(self, obj):
-        return "<a href='%s'>%s</a>" % (obj.no_snps, obj.no_snps)
 
+class Genes(models.Model):
+    gene_id = models.AutoField(primary_key=True, unique=True)
+    gene = models.CharField(max_length=10)
 
+    class Meta:
+        app_label = 'primerdb'
+        db_table = 'Genes'
 
 

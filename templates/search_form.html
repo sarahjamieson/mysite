@@ -3,7 +3,13 @@
     <title>Search</title>
 </head>
 <body>
-    <h1>Primer database search engine</h1>
+    <h1>Primer database search</h1>
+    <p>Genes currently in database:</p>
+    <ul>
+        {% for gene in genes %}
+        <li>{{ gene.gene }}</li>
+        {% endfor %}
+    </ul>
     <p>Enter a gene name and click 'Search'.</p>
     {% if error %}
         <p style="color: red;">Please submit a search term.</p>

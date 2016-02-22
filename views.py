@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from primerdb.models import Primers
-import datetime
+from primerdb.models import Primers, Genes
 
 
 def hello(request):
@@ -9,11 +8,13 @@ def hello(request):
 
 
 def search_form(request):
-    return render(request, 'search_form.html')
+    gene = Genes.objects.all()
+    return render(request, 'search_form.html', {'genes': gene})
 
 
 def search(request):
     error = False
+    gene = Genes.objects.all()
     if 'q' in request.GET:
         q = request.GET['q']
         if not q:
@@ -21,6 +22,10 @@ def search(request):
         else:
             primer = Primers.objects.filter(gene__icontains=q)
             return render(request, 'search_results.html',
-                        {'primers': primer, 'query': q})
-    return render(request, 'search_form.html', {'error': error})
+                          {'primers': primer, 'query': q})
+    return render(request, 'search_form.html', {'genes': gene, 'error': error})
+
+
+def search_snps(request):
+    return render(request, 'snp_results.html')
 

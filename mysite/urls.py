@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^hello/$', hello),
     url(r'^search-form/$', search_form),
-    url(r'^search/$', search),
+    url(r'^search/$', search, name='search'),
 ]

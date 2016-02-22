@@ -14,8 +14,8 @@
             <td><b>Version Number</b></td>
             <td><b>Primer Sequence</b></td>
             <td><b>Chromosome</b></td>
-            <td><b>Start position</b></td>
-            <td><b>End position</b></td>
+            <td><b>Start coordinate</b></td>
+            <td><b>End coordinate</b></td>
             <td><b>M13 Tagged? (Y/N)</b></td>
             <td><b>Primer Batch Numbers</b></td>
             <td><b>Primer Batch Test MS Project Name</b></td>
@@ -24,6 +24,7 @@
             <td><b>Annealing Temp (<sup>o</sup>C)</b></td>
             <td><b>Other Info</b></td>
             <td><b>Number of SNPs</b></td>
+            <td><b>Link</b></td>
         </tr>
         {% for primer in primers %}
         <tr>
@@ -42,6 +43,7 @@
             <td>{{ primer.anneal_temp }}</td>
             <td>{{ primer.other }}</td>
             <td>{{ primer.no_snps }}</td>
+            <td>This is the URL for "primerdb": <a href="{% url 'search:snp_results' %}">See SNPs</a></td>
         </tr>
         {% endfor %}
     </table>
