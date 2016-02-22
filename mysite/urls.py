@@ -16,12 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from views import hello, current_datetime, search_form, search
+from views import hello, search_form, search
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^hello/$', hello),
-    url(r'^time/$', current_datetime),
     url(r'^search-form/$', search_form),
     url(r'^search/$', search),
 ]

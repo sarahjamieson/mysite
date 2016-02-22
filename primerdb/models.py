@@ -11,18 +11,33 @@ class Primers(models.Model):
     version = models.IntegerField()
     primer_seq = models.CharField(max_length=30)
     chrom = models.CharField(max_length=2)
+    start = models.CharField(max_length=30)
+    end = models.CharField(max_length=30)
     m13_tag = models.CharField(max_length=1)
     batch = models.CharField(max_length=30)
     project = models.CharField(max_length=200)
-    order_date = models.DateTimeField()
+    order_date = models.CharField(max_length=20)
     frag_size = models.IntegerField()
-    temp = models.CharField(max_length=10)
+    anneal_temp = models.CharField(max_length=10)
     other = models.CharField(max_length=200)
-
-    def __str__(self):
-        return '%s %s %s %s' % (self.primer_id, self.gene, self.exon, self.direction)
+    snp_check = models.IntegerField()
+    no_snps = models.IntegerField()
+    rs = models.CharField(max_length=20)
+    hgvs = models.CharField(max_length=20)
+    freq = models.CharField(max_length=200)
+    ss = models.CharField(max_length=100)
+    ss_proj = models.CharField(max_length=200)
+    other2 = models.CharField(max_length=200)
+    action_to_take = models.CharField(max_length=100)
+    check_by = models.CharField(max_length=10)
 
     class Meta:
         app_label = 'primerdb'
         db_table = 'Primers'
+
+    def show_link(self, obj):
+        return "<a href='%s'>%s</a>" % (obj.no_snps, obj.no_snps)
+
+
+
 

@@ -9,4 +9,6 @@ excel_file = 'Alport_example.xlsx'
 db = 'primers.db.sqlite3'
 
 ets = ExcelToSQL(excel_file, db)
+ets.make_csv()
+ets.run_pcr()
 ets.to_db()

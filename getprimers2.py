@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import sqlite3 as lite
 import os
+import pybedtools as bed
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import django
@@ -62,26 +63,26 @@ class ExcelToSQL(object):
 
         df_primers_dups = pd.read_excel(self.excel_file, header=0, parse_cols='A:M, O:X', skiprows=2,
                                         names=['Gene', 'Exon', 'Direction', 'Version', 'Primer_seq', 'Chrom', 'M13_tag',
-                                               'Batch', 'project', 'Order_date', 'Frag_size', 'temp', 'Other',
+                                               'Batch', 'project', 'Order_date', 'Frag_size', 'anneal_temp', 'Other',
                                                'snp_check', 'no_snps', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2',
-                                               'action', 'check'],
+                                               'action_to_take', 'check_by'],
                                         sheetname=sheetname, index_col=None)
-        to_drop = ['']
-        df_primers = df_primers_dups.drop()
-        df_primers = df_primers_dups.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
+        to_drop = ['Version', 'M13_tag', 'Batch', 'project', 'Order_date', 'Frag_size', 'anneal_temp', 'Other',
+                   'snp_check', 'no_snps', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2', 'action_to_take',
+                   'check_by']
+        df_primers = df_primers_dups.drop(to_drop, axis=1)
+        df_primers = df_primers.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
         df_primers = df_primers.reset_index(drop=True)
 
-        print df_primers_dups
         return df_primers_dups, df_primers
 
     def make_csv(self):
-        df_primers = self.get_primers()
+        df_primers_dups, df_primers = self.get_primers()
         primer_list = []
         names_dup = []
         names = []
         exons = []
         dirs = []
-
         for row_index, row in df_primers.iterrows():
             primer_list.append(str(row['Primer_seq']))
             names_dup.append(str(row['Gene']) + "_" + str(row['Exon']) + "_" + str(row['Direction']))
@@ -105,16 +106,90 @@ class ExcelToSQL(object):
 
         return names, exons, dirs, primer_list
 
+    def run_pcr(self):
+        chromosomes = ['chr10.2bit', 'chr11.2bit', 'chr12.2bit', 'chr1.2bit', 'chr13.2bit', 'chr14.2bit', 'chr15.2bit',
+                       'chr16.2bit', 'chr17.2bit', 'chr18.2bit', 'chr19.2bit', 'chr20.2bit', 'chr21.2bit', 'chr22.2bit',
+                       'chr2.2bit', 'chr3.2bit', 'chr4.2bit', 'chr5.2bit', 'chr6.2bit', 'chr7.2bit', 'chr8.2bit',
+                       'chr9.2bit', 'chrX.2bit', 'chrY.2bit']
+
+        for chr in chromosomes:
+            os.system(
+                "/opt/kentools/isPcr -out=psl /media/genomicdata/ucsc_hg19_by_chr/2bit_chr/%s \
+                primerseqs.csv %s.tmp.psl" % (chr, chr[:-5]))
+
+            pslfile = "%s.tmp.psl" % chr[:-5]
+            bedfile = "%s.tmp.bed" % chr[:-5]
+
+            if os.path.getsize(pslfile) != 0:
+                os.system("/opt/kentools/pslToBed %s %s" % (pslfile, bedfile))
+                return bedfile
+            else:
+                os.system("rm %s" % pslfile)
+
+    def get_coords(self):
+        tool = bed.BedTool(self.run_pcr())
+        start_coords = []
+        end_coords = []
+        chroms = []
+        seq_position = 0
+        names, exons, dirs, primer_list = self.make_csv()
+
+        for row in tool:
+            chroms.append(row.chrom)
+            start_coords.append(row.start)
+            end_coords.append(row.start + len(primer_list[seq_position]))
+            chroms.append(row.chrom)
+            end_coords.append(row.end)
+            start_coords.append(row.end - len(primer_list[seq_position + 1]))
+            seq_position += 1
+
+        df_coords = pd.DataFrame([])
+        df_coords.insert(0, 'chrom', chroms)
+        df_coords.insert(1, 'start', start_coords)
+        df_coords.insert(2, 'end', end_coords)
+        df_coords.insert(3, 'name', names)
+
+        return df_coords
+
+    def make_bed(self):
+        df_coords = self.get_coords()
+
+        df_coords.to_csv('%s.csv' % self.filename, header=None, index=None, sep='\t')
+        csv_file = bed.BedTool('%s.csv' % self.filename)
+        csv_file.saveas('%s.bed' % self.filename)
+
+        os.system("rm /home/cuser/PycharmProjects/PrimerDatabase/%s.csv" % self.filename)
+
+    def col_to_string(self, row):
+        return str(row['Exon'])
+
+    def add_coords(self):
+        df_coords = self.get_coords()
+        df_primers_dups, df_primers = self.get_primers()
+        names, exons, dirs, primer_list = self.make_csv()
+        df_coords.insert(4, 'Exon', exons)
+        df_coords.insert(5, 'Direction', dirs)
+
+        df_coords['Exon'] = df_coords.apply(self.col_to_string, axis=1)  # converts to string for merging
+        df_primers_dups['Exon'] = df_primers_dups.apply(self.col_to_string, axis=1)
+
+        df_all = pd.merge(df_primers_dups, df_coords, how='left', on=['Exon', 'Direction'])
+        cols_to_drop = ['name', 'chrom']
+        df_all = df_all.drop(cols_to_drop, axis=1)
+        df_all = df_all.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))  # temporarily for view
+
+        return df_all
+
     def to_db(self):
         curs, con = self.get_cursor()
-        df_primers_dups, df_primers = self.get_primers()
+        df_all = self.add_coords()
 
         curs.execute("DROP TABLE IF EXISTS Primers")
 
-        curs.execute(
-            "CREATE TABLE Primers(Primer_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT, Exon TEXT, "
-            "Direction TEXT, Version REAL, Primer_Seq TEXT, Chrom TEXT, M13_Tag TEXT, Batch TEXT, "
-            "Project TEXT, Order_Date TIMESTAMP, Frag_Size REAL, Temp TEXT, "
-            "Other TEXT)")
+        curs.execute("CREATE TABLE Primers(Primer_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT, Exon TEXT, "
+                     "Direction TEXT, Version INTEGER, Primer_Seq TEXT, Chrom TEXT, M13_Tag TEXT, Batch TEXT, "
+                     "Project TEXT, Order_date TEXT, Frag_size INTEGER, Anneal_Temp TEXT, Other TEXT, "
+                     "snp_check INTEGER, no_snps INTEGER, rs TEXT, HGVS TEXT, Freq TEXT, ss TEXT, ss_proj TEXT, "
+                     "other2 TEXT, action_to_take TEXT, check_by TEXT, start TEXT, end TEXT)")
 
-        df_primers_dups.to_sql(unicode('Primers'), con, if_exists='append', index=False)
+        df_all.to_sql('Primers', con, if_exists='append', index=False)

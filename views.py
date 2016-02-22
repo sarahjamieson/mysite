@@ -8,11 +8,6 @@ def hello(request):
     return HttpResponse("Hello world")
 
 
-def current_datetime(request):
-    now = datetime.datetime.now()
-    return render(request, 'current_datetime.html', {'name': "The Clock", 'current_date': now})
-
-
 def search_form(request):
     return render(request, 'search_form.html')
 
@@ -28,3 +23,4 @@ def search(request):
             return render(request, 'search_results.html',
                         {'primers': primer, 'query': q})
     return render(request, 'search_form.html', {'error': error})
+

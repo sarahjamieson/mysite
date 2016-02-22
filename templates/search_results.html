@@ -9,15 +9,39 @@
     <p>Found {{ primers|length }} primer{{ primers|pluralize }}.</p>
     <table style="width:100%" border="1">
         <tr>
-            <td>Exon</td>
-            <td>Direction</td>
-            <td>Primer sequence</td>
+            <td><b>Exon</b></td>
+            <td><b>Direction</b></td>
+            <td><b>Version Number</b></td>
+            <td><b>Primer Sequence</b></td>
+            <td><b>Chromosome</b></td>
+            <td><b>Start position</b></td>
+            <td><b>End position</b></td>
+            <td><b>M13 Tagged? (Y/N)</b></td>
+            <td><b>Primer Batch Numbers</b></td>
+            <td><b>Primer Batch Test MS Project Name</b></td>
+            <td><b>Order Date</b></td>
+            <td><b>Fragment Size</b></td>
+            <td><b>Annealing Temp (<sup>o</sup>C)</b></td>
+            <td><b>Other Info</b></td>
+            <td><b>Number of SNPs</b></td>
         </tr>
         {% for primer in primers %}
         <tr>
             <td>{{ primer.exon }}</td>
             <td>{{ primer.direction }}</td>
+            <td>{{ primer.version }}</td>
             <td>{{ primer.primer_seq }}</td>
+            <td>{{ primer.chrom }}</td>
+            <td>{{ primer.start }}</td>
+            <td>{{ primer.end }}</td>
+            <td>{{ primer.m13_tag }}</td>
+            <td>{{ primer.batch }}</td>
+            <td>{{ primer.project }}</td>
+            <td>{{ primer.order_date }}</td>
+            <td>{{ primer.frag_size }}</td>
+            <td>{{ primer.anneal_temp }}</td>
+            <td>{{ primer.other }}</td>
+            <td>{{ primer.no_snps }}</td>
         </tr>
         {% endfor %}
     </table>
