@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load render_table from django_tables2 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer Results</title>
+</head>
+<body>
+    <p>You searched for: <strong>{{ query }}</strong></p>
+    {% if primers %}
+        <p>Found {{ primers.rows|length }} primer{{ primers.rows|pluralize }}.</p>
+        <table style="width:100%" border="1">
+            <tr>
+                <td><b>Exon</b></td>
+                <td><b>Direction</b></td>
+                <td><b>Version Number</b></td>
+                <td><b>Primer Sequence</b></td>
+                <td><b>Chromosome</b></td>
+                <td><b>Start coordinate</b></td>
+                <td><b>End coordinate</b></td>
+                <td><b>M13 Tagged? (Y/N)</b></td>
+                <td><b>Primer Batch Numbers</b></td>
+                <td><b>Primer Batch Test MS Project Name</b></td>
+                <td><b>Order Date</b></td>
+                <td><b>Fragment Size</b></td>
+                <td><b>Annealing Temp (<sup>o</sup>C)</b></td>
+                <td><b>Other Info</b></td>
+                <td><b>Total SNPs</b></td>
+            </tr>
+            {% for row in primers.rows %}
+            <tr>
+                <td>{{ row.exon }}</td>
+                <td>{{ row.direction }}</td>
+                <td>{{ row.version }}</td>
+                <td>{{ row.primer_seq }}</td>
+                <td>{{ row.chrom }}</td>
+                <td>{{ row.start }}</td>
+                <td>{{ row.end }}</td>
+                <td>{{ row.m13_tag }}</td>
+                <td>{{ row.batch }}</td>
+                <td>{{ row.project }}</td>
+                <td>{{ row.order_date }}</td>
+                <td>{{ row.frag_size }}</td>
+                <td>{{ row.anneal_temp }}</td>
+                <td>{{ row.other }}</td>
+                {% if "0" in row.no_snps %}
+                <td>0</td>
+                {% else %}
+                <td>{{ row.no_snps }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+    {% else %}
+    <p>No primers matched your search criteria.</p>
+    {% endif %}
+</body>
+</html>

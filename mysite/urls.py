@@ -16,11 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from views import hello, search_form, search
+from views import hello, search_form, search, search_snps, table, snp_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello/$', hello),
+    url(r'^hello/$', hello, name='hello'),
     url(r'^search-form/$', search_form),
     url(r'^search/$', search, name='search'),
+    url(r'^snp-results/$', search_snps, name='snps'),
+    url(r'^table/$', table),
+    url(r'^snp-table/(?P<name>[-\w]+)/$', snp_table, name='snp-table')
 ]

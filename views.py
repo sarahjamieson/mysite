@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from primerdb.models import Primers, Genes
+from primerdb.models import Primers, Genes, PrimerTable, SNPTable, SNPs
 
 
 def hello(request):
@@ -27,5 +27,24 @@ def search(request):
 
 
 def search_snps(request):
-    return render(request, 'snp_results.html')
+    primer = Primers.objects.all()
+    return render(request, 'snp_results.html', {'primers': primer})
 
+
+def table(request):
+    error = False
+    gene = Genes.objects.all()
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            primer = PrimerTable(Primers.objects.filter(gene__icontains=q))
+            return render(request, 'table.html',
+                          {'primers': primer, 'query': q})
+    return render(request, 'table_form.html', {'genes': gene, 'error': error})
+
+
+def snp_table(request, name):
+    snp = SNPTable(SNPs.objects.filter(name__icontains=name))
+    return render(request, 'snp_table.html', {'snps': snp})

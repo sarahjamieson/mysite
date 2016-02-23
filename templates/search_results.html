@@ -43,7 +43,10 @@
             <td>{{ primer.anneal_temp }}</td>
             <td>{{ primer.other }}</td>
             <td>{{ primer.no_snps }}</td>
-            <td>This is the URL for "primerdb": <a href="{% url 'search:snp_results' %}">See SNPs</a></td>
+            <td>
+                <a href="{% url 'snps' %}">See SNPs</a>
+            </td>
+
         </tr>
         {% endfor %}
     </table>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load render_table from django_tables2 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SNP Results</title>
+</head>
+<body>
+    {% if snps %}
+        <p>Found {{ snps.rows|length }} SNP{{ snps.rows|pluralize }} in this primer.</p>
+        <table style="width:100%" border="1">
+            <tr>
+                <td><b>SNP Check Build</b></td>
+                <td><b>dbSNP rs number</b></td>
+                <td><b>HGVS</b></td>
+                <td><b>Frequency Data</b></td>
+                <td><b>ss refs</b></td>
+                <td><b>Projects creating ss refs</b></td>
+                <td><b>Other Info</b></td>
+                <td><b>Action To Be Taken</b></td>
+                <td><b>Checked by</b></td>
+            </tr>
+            {% for row in snps.rows %}
+            <tr>
+                <td>{{ row.snp_check }}</td>
+                <td>{{ row.rs }}</td>
+                <td>{{ row.hgvs }}</td>
+                <td>{{ row.freq }}</td>
+                <td>{{ row.ss }}</td>
+                <td>{{ row.ss_proj }}</td>
+                <td>{{ row.other2 }}</td>
+                <td>{{ row.action_to_take }}</td>
+                <td>{{ row.check_by }}</td>
+            </tr>
+            {% endfor %}
+    {% else %}
+    <p>No primers matched your search criteria.</p>
+    {% endif %}
+</body>
+</html>

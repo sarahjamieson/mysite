@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Primers</title>
+</head>
+<body>
+    <p>Enter a gene name and click 'Search'.</p>
+    {% if error %}
+        <p style="color: red;">Please submit a search term.</p>
+    {% endif %}
+    <form action="" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>
+    <p>Genes currently in database:</p>
+        <ul>
+            {% for gene in genes %}
+            <li>{{ gene.gene }}</li>
+            {% endfor %}
+        </ul>
+</body>
+</html>

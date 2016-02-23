@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SNP Results</title>
 </head>
 <body>
-
+{% if primers %}
+    <p>Showing SNPs for primer: {{ primer.gene }} {{ primer.exon }} {{ primer.direction }}</p>
+    <table style="width:100%" border="1">
+        <tr>
+            <td><b>SNP Check Build</b></td>
+            <td><b>dbSNP rs number</b></td>
+            <td><b>HGVS</b></td>
+            <td><b>Frequency Data</b></td>
+            <td><b>ss refs</b></td>
+            <td><b>Projects creating ss refs</b></td>
+            <td><b>Other Info</b></td>
+            <td><b>Action To Be Taken</b></td>
+            <td><b>Checked By</b></td>
+        </tr>
+        {% for primer in primers %}
+        <tr>
+            <td>{{ primer.snp_check }}</td>
+            <td>{{ primer.rs }}</td>
+            <td>{{ primer.hgvs }}</td>
+            <td>{{ primer.freq }}</td>
+            <td>{{ primer.ss }}</td>
+            <td>{{ primer.ss_proj }}</td>
+            <td>{{ primer.other2 }}</td>
+            <td>{{ primer.action_to_take }}</td>
+            <td>{{ primer.check_by }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No primers matched your search criteria.</p>
+{% endif %}
 </body>
 </html>

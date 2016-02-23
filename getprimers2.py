@@ -87,7 +87,7 @@ class ExcelToSQL(object):
         dirs = []
         for row_index, row in df_primers.iterrows():
             primer_list.append(str(row['Primer_seq']))
-            names_dup.append(str(row['Gene']) + "_" + str(row['Exon']) + "_" + str(row['Direction']))
+            names_dup.append(str(row['Gene']) + str(row['Exon']) + str(row['Direction']))
             exons.append(str(row['Exon']))
             dirs.append(str(row['Direction']))
             for item in names_dup:
@@ -109,6 +109,7 @@ class ExcelToSQL(object):
         return names, exons, dirs, primer_list
 
     def run_pcr(self):
+
         print "Running virtual PCR..."
 
         chromosomes = ['chr10.2bit', 'chr11.2bit', 'chr12.2bit', 'chr1.2bit', 'chr13.2bit', 'chr14.2bit', 'chr15.2bit',
@@ -176,9 +177,10 @@ class ExcelToSQL(object):
         df_primers_dups['Exon'] = df_primers_dups.apply(self.col_to_string, axis=1)
 
         df_all = pd.merge(df_primers_dups, df_coords, how='left', on=['Exon', 'Direction'])
-        cols_to_drop = ['name', 'chrom']
+        cols_to_drop = ['chrom']
         df_all = df_all.drop(cols_to_drop, axis=1)
-        df_all = df_all.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))  # temporarily for view
+        # df_all = df_all.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))  # temporarily for view
+        print df_all
         gene_name = df_all.get_value(0, 'Gene')
 
         return df_all, gene_name
@@ -189,15 +191,35 @@ class ExcelToSQL(object):
         '''
         curs.execute("DROP TABLE IF EXISTS Primers")
         curs.execute("DROP TABLE IF EXISTS Genes")
+        curs.execute("DROP TABLE IF EXISTS SNPs")
 
-        curs.execute("CREATE TABLE Primers(Primer_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT, Exon TEXT, "
+        curs.execute("CREATE TABLE Primers(PrimerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT, Exon TEXT, "
                      "Direction TEXT, Version INTEGER, Primer_Seq TEXT, Chrom TEXT, M13_Tag TEXT, Batch TEXT, "
                      "Project TEXT, Order_date TEXT, Frag_size INTEGER, Anneal_Temp TEXT, Other TEXT, "
-                     "snp_check INTEGER, no_snps INTEGER, rs TEXT, HGVS TEXT, Freq TEXT, ss TEXT, ss_proj TEXT, "
-                     "other2 TEXT, action_to_take TEXT, check_by TEXT, start TEXT, end TEXT)")
+                     "snp_check INTEGER, no_snps INTEGER, rs TEXT, hgvs TEXT, freq TEXT, ss TEXT, ss_proj TEXT, "
+                     "other2 TEXT, action_to_take TEXT, check_by TEXT, start TEXT, end TEXT, name TEXT)")
+
+        curs.execute("CREATE TABLE SNPs(SNP_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT, Exon TEXT, "
+                     "Direction TEXT, snp_check INTEGER, rs TEXT, hgvs TEXT, freq TEXT, ss TEXT, ss_proj TEXT, "
+                     "other2 TEXT, action_to_take TEXT, check_by TEXT, name TEXT)")
+
         curs.execute("CREATE TABLE Genes(Gene_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT)")
         '''
+
         curs.execute("INSERT INTO Genes (Gene) VALUES (?)", (gene_name,))
 
-        df_all.to_sql('Primers', con, if_exists='append', index=False)
+        primertable_cols_to_drop = ['snp_check', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2', 'action_to_take',
+                                    'check_by']
+        snptable_cols_to_drop = ['Exon', 'Direction', 'Version', 'Primer_seq', 'Chrom', 'M13_tag', 'Batch', 'project',
+                                 'Order_date', 'Frag_size', 'anneal_temp', 'Other', 'no_snps', 'start', 'end']
+
+        df_primertable = df_all.drop(primertable_cols_to_drop, axis=1)
+        df_primertable = df_primertable.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
+        print df_primertable
+        df_snptable = df_all.drop(snptable_cols_to_drop, axis=1)
+        print df_snptable
+
+        df_primertable.to_sql('Primers', con, if_exists='append', index=False)
+        df_snptable.to_sql('SNPs', con, if_exists='append', index=False)
+
         print "Primers successfully added to database."
