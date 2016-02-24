@@ -1,5 +1,5 @@
 import warnings
-from getprimers2 import ExcelToSQL
+from getprimers import ExcelToSQL
 import os
 warnings.simplefilter("ignore", UserWarning)
 
@@ -16,3 +16,5 @@ db = 'primers.db.sqlite3'
 ets = ExcelToSQL(excel_file, db, filename)
 ets.make_csv()
 ets.to_db()
+
+os.system("rm %s" % excel_file)

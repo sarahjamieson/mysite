@@ -3,10 +3,8 @@ import re
 import sqlite3 as lite
 import os
 import pybedtools as bed
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import django
-
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
 
 
@@ -127,12 +125,14 @@ class ExcelToSQL(object):
 
             if os.path.getsize(pslfile) != 0:
                 os.system("/opt/kentools/pslToBed %s %s" % (pslfile, bedfile))
+                os.system("rm %s" % pslfile)
                 return bedfile
             else:
                 os.system("rm %s" % pslfile)
 
     def get_coords(self):
-        tool = bed.BedTool(self.run_pcr())
+        bedfile = self.run_pcr()
+        tool = bed.BedTool(bedfile)
         start_coords = []
         end_coords = []
         chroms = []
@@ -161,6 +161,7 @@ class ExcelToSQL(object):
         os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
         os.system(
             "mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/bedfiles" % self.filename)
+        os.system("rm %s" % bedfile)
 
         return df_coords
 

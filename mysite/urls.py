@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from views import hello, search_form, search, search_snps, primerdatabase, snp_table
+from primerdb.views import hello, search_form, search, search_snps, primerdatabase, snp_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
