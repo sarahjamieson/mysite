@@ -87,7 +87,7 @@ class ExcelToSQL(object):
         dirs = []
         for row_index, row in df_primers.iterrows():
             primer_list.append(str(row['Primer_seq']))
-            names_dup.append(str(row['Gene']) + str(row['Exon']) + str(row['Direction']))
+            names_dup.append(str(row['Gene']) + '_' + str(row['Exon']) + str(row['Direction']))
             exons.append(str(row['Exon']))
             dirs.append(str(row['Direction']))
             for item in names_dup:
@@ -159,7 +159,8 @@ class ExcelToSQL(object):
         csv_file.saveas('%s.bed' % self.filename)
 
         os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
-        os.system("mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/" % self.filename)
+        os.system(
+            "mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/bedfiles" % self.filename)
 
         return df_coords
 
@@ -179,8 +180,6 @@ class ExcelToSQL(object):
         df_all = pd.merge(df_primers_dups, df_coords, how='left', on=['Exon', 'Direction'])
         cols_to_drop = ['chrom']
         df_all = df_all.drop(cols_to_drop, axis=1)
-        # df_all = df_all.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))  # temporarily for view
-        print df_all
         gene_name = df_all.get_value(0, 'Gene')
 
         return df_all, gene_name
@@ -215,9 +214,7 @@ class ExcelToSQL(object):
 
         df_primertable = df_all.drop(primertable_cols_to_drop, axis=1)
         df_primertable = df_primertable.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
-        print df_primertable
         df_snptable = df_all.drop(snptable_cols_to_drop, axis=1)
-        print df_snptable
 
         df_primertable.to_sql('Primers', con, if_exists='append', index=False)
         df_snptable.to_sql('SNPs', con, if_exists='append', index=False)

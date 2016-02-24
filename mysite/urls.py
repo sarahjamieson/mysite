@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from views import hello, search_form, search, search_snps, table, snp_table
+from views import hello, search_form, search, search_snps, primerdatabase, snp_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^search-form/$', search_form),
     url(r'^search/$', search, name='search'),
     url(r'^snp-results/$', search_snps, name='snps'),
-    url(r'^table/$', table),
-    url(r'^snp-table/(?P<name>[-\w]+)/$', snp_table, name='snp-table')
+    url(r'^primerdatabase/$', primerdatabase),
+    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table')
 ]

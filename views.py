@@ -31,7 +31,7 @@ def search_snps(request):
     return render(request, 'snp_results.html', {'primers': primer})
 
 
-def table(request):
+def primerdatabase(request):
     error = False
     gene = Genes.objects.all()
     if 'q' in request.GET:
@@ -40,9 +40,9 @@ def table(request):
             error = True
         else:
             primer = PrimerTable(Primers.objects.filter(gene__icontains=q))
-            return render(request, 'table.html',
+            return render(request, 'primerdatabase.html',
                           {'primers': primer, 'query': q})
-    return render(request, 'table_form.html', {'genes': gene, 'error': error})
+    return render(request, 'primerdb_form.html', {'genes': gene, 'error': error})
 
 
 def snp_table(request, name):

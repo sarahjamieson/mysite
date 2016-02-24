@@ -95,5 +95,6 @@ class Genes(models.Model):
     class Meta:
         app_label = 'primerdb'
         db_table = 'Genes'
+        ordering = ['gene', 'gene_id']
 
 
