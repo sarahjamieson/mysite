@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from primerdb.views import hello, search_form, search, search_snps, primerdatabase, snp_table
+from primerdb.views import hello, search_form, search, search_snps, primerdatabase, snp_table, upload_file, db_confirm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^search-form/$', search_form),
     url(r'^search/$', search, name='search'),
     url(r'^snp-results/$', search_snps, name='snps'),
-    url(r'^primerdatabase/$', primerdatabase),
-    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table')
+    url(r'^primerdatabase/$', primerdatabase, name='home'),
+    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),
+    url(r'^upload_file/$', upload_file, name='upload'),
+    url(r'^complete/$', db_confirm, name='complete'),
 ]

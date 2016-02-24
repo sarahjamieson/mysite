@@ -2,7 +2,7 @@ import pandas as pd
 import re
 import sqlite3 as lite
 import os
-import pybedtools as bed
+from pybedtools import BedTool
 import django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
@@ -91,7 +91,7 @@ class ExcelToSQL(object):
             for item in names_dup:
                 if item not in names:
                     names.append(item)
-
+        print df_primers
         forwards = primer_list[::2]
         reverses = primer_list[1::2]
 
@@ -132,7 +132,7 @@ class ExcelToSQL(object):
 
     def get_coords(self):
         bedfile = self.run_pcr()
-        tool = bed.BedTool(bedfile)
+        tool = BedTool(bedfile)
         start_coords = []
         end_coords = []
         chroms = []
@@ -155,7 +155,7 @@ class ExcelToSQL(object):
         df_coords.insert(3, 'name', names)
 
         df_coords.to_csv('%s.csv' % self.filename, header=None, index=None, sep='\t')
-        csv_file = bed.BedTool('%s.csv' % self.filename)
+        csv_file = BedTool('%s.csv' % self.filename)
         csv_file.saveas('%s.bed' % self.filename)
 
         os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
@@ -219,5 +219,7 @@ class ExcelToSQL(object):
 
         df_primertable.to_sql('Primers', con, if_exists='append', index=False)
         df_snptable.to_sql('SNPs', con, if_exists='append', index=False)
+
+        con.commit()
 
         print "Primers successfully added to database."
