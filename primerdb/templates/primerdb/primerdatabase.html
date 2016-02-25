@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load render_table from django_tables2 %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +7,7 @@
 <body>
     <p>You searched for: <strong>{{ query }}</strong></p>
     {% if primers %}
+    <!--Need to specify ".rows" to iterate through table-->
         <p>Found {{ primers.rows|length }} primer{{ primers.rows|pluralize }}.</p>
         <table style="width:100%" border="1">
             <tr>
@@ -43,6 +43,7 @@
                 <td>{{ row.frag_size }}</td>
                 <td>{{ row.anneal_temp }}</td>
                 <td>{{ row.other }}</td>
+                <!--If no SNPs are present in primer, link to SNP table will not appear-->
                 {% if "0" in row.no_snps %}
                 <td>0</td>
                 {% else %}

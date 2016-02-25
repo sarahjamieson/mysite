@@ -19,6 +19,7 @@
                 information should be copied onto this new line).
             </li>
         </ol>
+    <!--Form to upload excel file. enctype="multipart/form-data" required to pass to form. action refers to url path.-->
     <form enctype="multipart/form-data"  action="/upload_file/" method="post">
     {% csrf_token %}
     {{ form }}

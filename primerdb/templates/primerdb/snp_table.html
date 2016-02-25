@@ -7,6 +7,7 @@
 </head>
 <body>
     {% if snps %}
+        <!--Need to specify ".rows" to iterate through table-->
         <p>Found {{ snps.rows|length }} SNP{{ snps.rows|pluralize }} in this primer.</p>
         <table style="width:100%" border="1">
             <tr>

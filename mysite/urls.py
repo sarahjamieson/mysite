@@ -21,7 +21,7 @@ from primerdb.views import primerdatabase, snp_table, upload_file, db_confirm
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^primerdatabase/$', primerdatabase, name='home'),
-    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),
+    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),  # use "[-\w]+" to cope with "-" in search.
     url(r'^upload_file/$', upload_file, name='upload'),
     url(r'^complete/$', db_confirm, name='complete'),
 ]
