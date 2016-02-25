@@ -2,11 +2,21 @@ import sqlite3
 
 
 class CheckUpdate(object):
+    """Checks if gene name given is currently in the database.
+
+        Args:
+            :param: gene to check for.
+    """
 
     def __init__(self, gene):
         self.gene = gene
 
     def check_update(self):
+        """Runs a query on the database to get the value in Gene column.
+
+            Returns:
+                :return: result of query.
+        """
         con = sqlite3.connect('primers.db.sqlite3')
         curs = con.cursor()
 

@@ -3,19 +3,20 @@ from getprimers import ExcelToSQL
 import os
 warnings.simplefilter("ignore", UserWarning)
 
-"""Module takes an excel file and database as inputs and runs the ExcelToSQL class to add excel files to a database."""
 
-excel_file = raw_input('Enter excel file name with file extension: ')
+def excel_to_db():
+    """Takes an excel file, extracts primer information and adds this to a database."""
 
-os.system("cp /media/sf_sarah_share/%s /home/cuser/PycharmProjects/djangobook/mysite/primerdb" % excel_file)
-filename = raw_input('Save bed file as: ')
+    excel_file = raw_input('Enter excel file name with file extension: ')
+    filename = raw_input('Save bed file as: ')
+    db = 'primers.db.sqlite3'
 
+    os.system("cp /media/sf_sarah_share/%s /home/cuser/PycharmProjects/djangobook/mysite/primerdb" % excel_file)
 
-db = 'primers.db.sqlite3'
+    ets = ExcelToSQL(excel_file, db, filename)
+    ets.make_csv()
+    ets.to_db()
 
-ets = ExcelToSQL(excel_file, db, filename)
-ets.make_csv()
-ets.to_db()
+    os.system("rm %s" % excel_file)
+    os.system("rm primerseqs.csv")
 
-os.system("rm %s" % excel_file)
-os.system("rm primerseqs.csv")

@@ -16,14 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from primerdb.views import hello, search_form, search, search_snps, primerdatabase, snp_table, upload_file, db_confirm
+from primerdb.views import primerdatabase, snp_table, upload_file, db_confirm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello/$', hello, name='hello'),
-    url(r'^search-form/$', search_form),
-    url(r'^search/$', search, name='search'),
-    url(r'^snp-results/$', search_snps, name='snps'),
     url(r'^primerdatabase/$', primerdatabase, name='home'),
     url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),
     url(r'^upload_file/$', upload_file, name='upload'),
