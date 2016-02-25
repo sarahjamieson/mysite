@@ -5,6 +5,20 @@
     <title>Upload new excel file</title>
 </head>
 <body>
+    <h1>Add/Update Primers</h1>
+    <p>Upload an excel file with primer information.</p>
+    <p>Please ensure that:</p>
+        <ol type="1">
+            <li>All columns match the template (primer details in columns A-M and SNP details in columns O-X).</li>
+            <li>There are no merged cells.</li>
+            <li>There are no empty cells in the Gene, Exon, Direction, Primer Sequence or Chromosome columns.</li>
+            <li>The sheet with the up-to-date primer information contains "Current primers" in its sheet name and the rest
+                do not.
+            </li>
+            <li>If multiple SNPs are found within one primer, each additional SNP is given a new line (the primer
+                information should be copied onto this new line).
+            </li>
+        </ol>
     <form enctype="multipart/form-data"  action="/upload_file/" method="post">
     {% csrf_token %}
     {{ form }}

@@ -79,6 +79,7 @@ def excel_to_db(excel_file):
     ets = ExcelToSQL(excel_file, db, bedfile)
     ets.make_csv()
     ets.to_db()
+    os.system("rm %s" % excel_file)
 
 
 def db_confirm(request):

@@ -4,6 +4,7 @@ import sqlite3 as lite
 import os
 from pybedtools import BedTool
 import django
+from update import CheckUpdate
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
 
@@ -34,7 +35,7 @@ class ExcelToSQL(object):
         """
 
         con = lite.connect(
-            self.db)  # This will create the database if it doesn't already exist.
+            self.db)
         curs = con.cursor()
 
         return curs, con
@@ -91,7 +92,6 @@ class ExcelToSQL(object):
             for item in names_dup:
                 if item not in names:
                     names.append(item)
-        print df_primers
         forwards = primer_list[::2]
         reverses = primer_list[1::2]
 
@@ -206,6 +206,16 @@ class ExcelToSQL(object):
         curs.execute("CREATE TABLE Genes(Gene_Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Gene TEXT)")
         '''
 
+        uni_gene = '(u\'%s\',)' % gene_name
+
+        update = CheckUpdate(gene_name)
+        gene = update.check_update()
+
+        if str(uni_gene) == str(gene):
+            curs.execute("DELETE FROM Primers WHERE Gene='%s'" % gene_name)
+            curs.execute("DELETE FROM Genes WHERE Gene='%s'" % gene_name)
+            curs.execute("DELETE FROM SNPs WHERE Gene='%s'" % gene_name)
+
         curs.execute("INSERT INTO Genes (Gene) VALUES (?)", (gene_name,))
 
         primertable_cols_to_drop = ['snp_check', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2', 'action_to_take',
@@ -223,3 +233,5 @@ class ExcelToSQL(object):
         con.commit()
 
         print "Primers successfully added to database."
+
+
