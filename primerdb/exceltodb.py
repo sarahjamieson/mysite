@@ -7,7 +7,7 @@ warnings.simplefilter("ignore", UserWarning)
 
 excel_file = raw_input('Enter excel file name with file extension: ')
 
-os.system("cp /media/sf_sarah_share/%s /home/cuser/PycharmProjects/djangobook/mysite/" % excel_file)
+os.system("cp /media/sf_sarah_share/%s /home/cuser/PycharmProjects/djangobook/mysite/primerdb" % excel_file)
 filename = raw_input('Save bed file as: ')
 
 
@@ -18,3 +18,4 @@ ets.make_csv()
 ets.to_db()
 
 os.system("rm %s" % excel_file)
+os.system("rm primerseqs.csv")

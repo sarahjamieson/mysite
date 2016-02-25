@@ -80,6 +80,7 @@ def excel_to_db(excel_file):
     ets.make_csv()
     ets.to_db()
     os.system("rm %s" % excel_file)
+    os.system("rm primerseqs.csv")
 
 
 def db_confirm(request):
