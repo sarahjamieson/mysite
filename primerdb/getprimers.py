@@ -5,11 +5,12 @@ import os
 from pybedtools import BedTool
 import django
 from update import CheckUpdate
+from checkprimers import CheckPrimers
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
 
 
-class ExcelToSQL(object):
+class GetPrimers(object):
     """Extracts data from excel spread sheet and imports it into a sqlite database.
 
         Args:
@@ -65,6 +66,7 @@ class ExcelToSQL(object):
         to_drop = ['Version', 'M13_tag', 'Batch', 'project', 'Order_date', 'Frag_size', 'anneal_temp', 'Other',
                    'snp_check', 'no_snps', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2', 'action_to_take',
                    'check_by']
+        df_primers_dups = df_primers_dups.where((pd.notnull(df_primers_dups)), None)
         df_primers = df_primers_dups.drop(to_drop, axis=1)
         df_primers = df_primers.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
         df_primers = df_primers.reset_index(drop=True)
@@ -251,14 +253,6 @@ class ExcelToSQL(object):
         update = CheckUpdate(gene_name)
         gene = update.check_update()
 
-        # If the gene is already in the database, it will delete existing data and insert new data.
-        if str(uni_gene) == str(gene):
-            curs.execute("DELETE FROM Primers WHERE Gene='%s'" % gene_name)
-            curs.execute("DELETE FROM Genes WHERE Gene='%s'" % gene_name)
-            curs.execute("DELETE FROM SNPs WHERE Gene='%s'" % gene_name)
-
-        curs.execute("INSERT INTO Genes (Gene) VALUES (?)", (gene_name,))
-
         primertable_cols_to_drop = ['snp_check', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2', 'action_to_take',
                                     'check_by']
         snptable_cols_to_drop = ['Exon', 'Direction', 'Version', 'Primer_seq', 'Chrom', 'M13_tag', 'Batch', 'project',
@@ -268,11 +262,25 @@ class ExcelToSQL(object):
         df_primertable = df_primertable.drop_duplicates(subset=('Gene', 'Exon', 'Direction', 'Chrom'))
         df_snptable = df_all.drop(snptable_cols_to_drop, axis=1)
 
-        df_primertable.to_sql('Primers', con, if_exists='append', index=False)
-        df_snptable.to_sql('SNPs', con, if_exists='append', index=False)
+        primer_check = CheckPrimers(df_primertable)
+        primer_errors = primer_check.check_all()
+        if primer_errors == 0:
+            # If the gene is already in the database, it will delete existing data and insert new data.
+            if str(uni_gene) == str(gene):
+                curs.execute("DELETE FROM Primers WHERE Gene='%s'" % gene_name)
+                curs.execute("DELETE FROM Genes WHERE Gene='%s'" % gene_name)
+                curs.execute("DELETE FROM SNPs WHERE Gene='%s'" % gene_name)
+
+            curs.execute("INSERT INTO Genes (Gene) VALUES (?)", (gene_name,))
+            df_primertable.to_sql('Primers', con, if_exists='append', index=False)
+            df_snptable.to_sql('SNPs', con, if_exists='append', index=False)
+
+            print "Primers successfully added to database."
+        else:
+            print "Primers not added to database. Fix errors and try again."
 
         con.commit()
 
-        print "Primers successfully added to database."
+
 
 

@@ -19,7 +19,7 @@ class Primers(models.Model):
     m13_tag = models.CharField(max_length=1)
     batch = models.CharField(max_length=30)
     project = models.CharField(max_length=200, default="")
-    order_date = models.CharField(max_length=20)
+    order_date = models.DateField()
     frag_size = models.IntegerField()
     anneal_temp = models.CharField(max_length=10)
     other = models.CharField(max_length=200)

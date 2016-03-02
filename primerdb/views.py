@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from primerdb.models import Primers, Genes, PrimerTable, SNPTable, SNPs
 from primerdb.forms import UploadFileForm
-from getprimers import ExcelToSQL
+from getprimers import GetPrimers
 import os
 
 
@@ -64,7 +64,7 @@ def excel_to_db(excel_file):
     """
     db = 'primers.db.sqlite3'
     bedfile = excel_file + "_bedfile"
-    ets = ExcelToSQL(excel_file, db, bedfile)
+    ets = GetPrimers(excel_file, db, bedfile)
     ets.make_csv()
     ets.to_db()
     os.system("rm %s" % excel_file)

@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 
 class CheckUpdate(object):
@@ -17,7 +18,7 @@ class CheckUpdate(object):
             Returns:
                 :return: result of query.
         """
-        con = sqlite3.connect('primers.db.sqlite3')
+        con = sqlite3.connect(os.path.join(os.pardir, 'primers.db.sqlite3'))
         curs = con.cursor()
 
         curs.execute("SELECT Gene FROM Genes WHERE Gene LIKE '%s'" % self.gene)
