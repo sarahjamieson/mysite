@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5cfd95b9-f8ae-46a9-856b-d0d169d22751" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/alport_example.xlsx" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primers.db.sqlite3" afterPath="$PROJECT_DIR$/primers.db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/cuser.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/cuser.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/exceltodb.py" afterPath="$PROJECT_DIR$/primerdb/exceltodb.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/checkprimers.py" afterPath="$PROJECT_DIR$/primerdb/checkprimers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/getprimers.py" afterPath="$PROJECT_DIR$/primerdb/getprimers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/models.py" afterPath="$PROJECT_DIR$/primerdb/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/update.py" afterPath="$PROJECT_DIR$/primerdb/update.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/views.py" afterPath="$PROJECT_DIR$/primerdb/views.py" />
     </list>
     <ignored path="mysite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+              <caret line="277" column="77" selection-start-line="277" selection-start-column="77" selection-end-line="277" selection-end-column="77" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -77,11 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkprimers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="checkprimers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/primerdb/checkprimers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3846154">
-              <caret line="138" column="17" selection-start-line="138" selection-start-column="17" selection-end-line="138" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="139" column="27" selection-start-line="139" selection-start-column="27" selection-end-line="139" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="checksnps.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/primerdb/checksnps.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.30769232">
+              <caret line="14" column="100" selection-start-line="14" selection-start-column="100" selection-end-line="14" selection-end-column="100" />
               <folding />
             </state>
           </provider>
@@ -118,11 +126,12 @@
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/snp_table.html" />
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/upload_file.html" />
         <option value="$PROJECT_DIR$/primerdb/models.py" />
-        <option value="$PROJECT_DIR$/primerdb/checkprimers.py" />
         <option value="$PROJECT_DIR$/primerdb/views.py" />
         <option value="$PROJECT_DIR$/primerdb/update.py" />
-        <option value="$PROJECT_DIR$/primerdb/getprimers.py" />
         <option value="$PROJECT_DIR$/primerdb/exceltodb.py" />
+        <option value="$PROJECT_DIR$/primerdb/getprimers.py" />
+        <option value="$PROJECT_DIR$/primerdb/checkprimers.py" />
+        <option value="$PROJECT_DIR$/primerdb/checksnps.py" />
       </list>
     </option>
   </component>
@@ -537,16 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/primerdb/exceltodb.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -557,10 +556,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="277" column="77" selection-start-line="277" selection-start-column="77" selection-end-line="277" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/primerdb/checkprimers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3846154">
-          <caret line="138" column="17" selection-start-line="138" selection-start-column="17" selection-end-line="138" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="139" column="27" selection-start-line="139" selection-start-column="27" selection-end-line="139" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/primerdb/checksnps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30769232">
+          <caret line="14" column="100" selection-start-line="14" selection-start-column="100" selection-end-line="14" selection-end-column="100" />
           <folding />
         </state>
       </provider>

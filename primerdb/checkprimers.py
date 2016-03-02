@@ -133,8 +133,18 @@ class CheckPrimers(object):
                     print "Error: invalid chromosome, see row", row_index + 4, row['Chrom']
         return check
 
+    def check_no_snps(self):
+        """Returns the number of errors in the 'Total SNPs' column (this should be a numerical value)."""
+        check = 0
+        for row_index, row in self.primer_df.iterrows():
+            if row['no_snps'] is not None:
+                if (not isinstance(row['no_snps'], float)) and (not isinstance(row['no_snps'], int)):
+                    check += 1
+                    print "Error: invalid entry in 'Total_SNPs' column, see row", row_index+4  # prints row in excel doc
+        return check
+
     def check_all(self):
         """Returns all checks as a list"""
         return (self.check_gene() + self.check_exon() + self.check_direction() + self.check_version() +
                 self.check_seq() + self.check_tag() + self.check_batch() + self.check_dates() + self.check_frag_size() +
-                self.check_anneal_temp() + self.check_chrom())
+                self.check_anneal_temp() + self.check_chrom() + self.check_no_snps())

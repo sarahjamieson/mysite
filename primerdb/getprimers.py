@@ -6,6 +6,7 @@ from pybedtools import BedTool
 import django
 from update import CheckUpdate
 from checkprimers import CheckPrimers
+from checksnps import CheckSNPs
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
 
@@ -264,7 +265,9 @@ class GetPrimers(object):
 
         primer_check = CheckPrimers(df_primertable)
         primer_errors = primer_check.check_all()
-        if primer_errors == 0:
+        snp_check = CheckSNPs(df_snptable)
+        snp_errors = snp_check.check_all()
+        if primer_errors == 0 and snp_errors == 0:
             # If the gene is already in the database, it will delete existing data and insert new data.
             if str(uni_gene) == str(gene):
                 curs.execute("DELETE FROM Primers WHERE Gene='%s'" % gene_name)
