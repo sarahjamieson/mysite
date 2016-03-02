@@ -8,7 +8,7 @@ from django_tables2 import A
 class Primers(models.Model):
     primerid = models.AutoField(primary_key=True, unique=True)
     gene = models.CharField(max_length=10)
-    exon = models.CharField(max_length=10)
+    exon = models.CharField(max_length=3)
     direction = models.CharField(max_length=1)
     name = models.CharField(max_length=30, default='')
     version = models.IntegerField()
