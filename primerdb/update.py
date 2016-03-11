@@ -9,8 +9,9 @@ class CheckUpdate(object):
             :param: gene to check for.
     """
 
-    def __init__(self, gene):
+    def __init__(self, gene, db):
         self.gene = gene
+        self.db = db
 
     def check_update(self):
         """Runs a query on the database to get the value in Gene column.
@@ -18,7 +19,7 @@ class CheckUpdate(object):
             Returns:
                 :return: result of query.
         """
-        con = sqlite3.connect(os.path.join(os.pardir, 'primers.db.sqlite3'))
+        con = sqlite3.connect(self.db)
         curs = con.cursor()
 
         curs.execute("SELECT Gene FROM Genes WHERE Gene LIKE '%s'" % self.gene)

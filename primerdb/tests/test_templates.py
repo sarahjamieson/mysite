@@ -28,7 +28,7 @@ class TestUrls(TestCase):
         response = self.client.get(reverse('complete'))
         self.assertEqual(response.status_code, 200)
 
-    def test_this(self):
+    def test_wrongpage(self):
         response = self.client.get('/bonjour/')  # checks a different status code
         self.assertEqual(response.status_code, 404)
 
