@@ -63,8 +63,7 @@ def excel_to_db(excel_file):
         :param excel_file:
     """
     db = 'primers.db.sqlite3'
-    bedfile = os.path.splitext(excel_file)[0]
-    ets = GetPrimers(excel_file, db, bedfile)
+    ets = GetPrimers(excel_file, db)
     ets.make_csv()
     ets.to_db()
     os.system("rm %s" % excel_file)

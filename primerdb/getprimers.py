@@ -20,10 +20,9 @@ class GetPrimers(object):
            :param filename: name to give BED file produced.
     """
 
-    def __init__(self, excel_file, db, filename):
+    def __init__(self, excel_file, db):
         self.excel_file = excel_file
         self.db = db
-        self.filename = filename
 
     def get_cursor(self):
         """Creates a connection to the database.
@@ -180,16 +179,15 @@ class GetPrimers(object):
         df_coords.insert(3, 'name', names)
 
         # Cannot directly convert a dataframe into a BED file (needs to be CSV first).
-        df_coords.to_csv('%s.csv' % self.filename, header=None, index=None, sep='\t')
-        csv_file = BedTool('%s.csv' % self.filename)
-        csv_file.saveas('%s.bed' % self.filename)
+        df_coords.to_csv('%s.csv' % os.path.splitext(bedfile)[0], header=None, index=None, sep='\t')
+        csv_file = BedTool('%s.csv' % os.path.splitext(bedfile)[0])
+        csv_file.saveas('%s.bed' % os.path.splitext(bedfile)[0])
 
         # Removes unnecessary files and moves BED file into shared folder. (add /primerdb/tests for unit testing)
-        os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
+        os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % os.path.splitext(bedfile)[0])
         os.system(
             "mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/bedfiles" %
-            self.filename)
-        os.system("rm %s" % bedfile)
+            os.path.splitext(bedfile)[0])
 
         return df_coords
 
