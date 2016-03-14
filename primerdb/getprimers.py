@@ -127,7 +127,7 @@ class GetPrimers(object):
 
         print "Running virtual PCR..."
 
-        chromosomes = ['chrX.2bit', 'chr11.2bit', 'chr12.2bit', 'chr1.2bit', 'chr13.2bit', 'chr14.2bit', 'chr15.2bit',
+        chromosomes = ['chr1.2bit', 'chr11.2bit', 'chr12.2bit', 'chrX.2bit', 'chr13.2bit', 'chr14.2bit', 'chr15.2bit',
                        'chr16.2bit', 'chr17.2bit', 'chr18.2bit', 'chr19.2bit', 'chr20.2bit', 'chr21.2bit', 'chr22.2bit',
                        'chr2.2bit', 'chr3.2bit', 'chr4.2bit', 'chr5.2bit', 'chr6.2bit', 'chr7.2bit', 'chr8.2bit',
                        'chr9.2bit', 'chr10.2bit', 'chrY.2bit']
@@ -185,9 +185,9 @@ class GetPrimers(object):
         csv_file.saveas('%s.bed' % self.filename)
 
         # Removes unnecessary files and moves BED file into shared folder. (add /tests for unit testing)
-        os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/primerdb/%s.csv" % self.filename)
+        os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
         os.system(
-            "mv /home/cuser/PycharmProjects/djangobook/mysite/primerdb/%s.bed /media/sf_sarah_share/bedfiles" %
+            "mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/bedfiles" %
             self.filename)
         os.system("rm %s" % bedfile)
 
