@@ -17,7 +17,7 @@ class CheckSNPs(object):
         check = 0
         for row_index, row in self.snp_df.iterrows():
             if row['rs'] is not None:
-                if not re.match("rs(.*)", row['rs']):
+                if not re.match("rs(.*)", str(row['rs'])):
                     check += 1
                     print "Error: invalid dbSNP rs number, see row", row_index+4  # prints row in excel doc
         return check
@@ -28,7 +28,7 @@ class CheckSNPs(object):
         check = 0
         for row_index, row in self.snp_df.iterrows():
             if row['hgvs'] is not None:
-                if not re.match("c(.*)", row['hgvs']):
+                if not re.match("c(.*)", str(row['hgvs'])):
                     check += 1
                     print "Error: invalid HGVS nomenclature, see row", row_index+4  # prints row in excel doc
         return check

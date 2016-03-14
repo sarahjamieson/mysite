@@ -9,12 +9,12 @@ class CheckPrimers(object):
 
     def __init__(self, primer_df):
         self.primer_df = primer_df
+        global specials
+        specials = ['?', '!', '~', '@', '#', '^', '&', '+', ':', ';', '%', '{', '}', '[', ']', ',']
 
     def check_gene(self):
         """Returns the number of errors in the 'Gene' column (checks for special characters)."""
-        global specials
         check = 0
-        specials = ['?', '!', '~', '@', '#', '^', '&', '+', ':', ';', '%', '{', '}', '[', ']', ',']
         for row_index, row in self.primer_df.iterrows():
             for char in row['Gene']:
                 if char in specials:
