@@ -184,7 +184,7 @@ class GetPrimers(object):
         csv_file = BedTool('%s.csv' % self.filename)
         csv_file.saveas('%s.bed' % self.filename)
 
-        # Removes unnecessary files and moves BED file into shared folder. (add /tests for unit testing)
+        # Removes unnecessary files and moves BED file into shared folder. (add /primerdb/tests for unit testing)
         os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/%s.csv" % self.filename)
         os.system(
             "mv /home/cuser/PycharmProjects/djangobook/mysite/%s.bed /media/sf_sarah_share/bedfiles" %
