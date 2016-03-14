@@ -143,8 +143,10 @@ class GetPrimers(object):
             # Only converts a non-empty psl file to a bed file, and removes all psl files in folder.
             if os.path.getsize(pslfile) != 0:
                 os.system("/opt/kentools/pslToBed %s %s" % (pslfile, bedfile))
+                os.system("rm %s" % pslfile)
                 return bedfile
-            os.system("rm %s" % pslfile)
+            else:
+                os.system("rm %s" % pslfile)
 
     def get_coords(self):
         """Extracts coordinates from bed file of PCR products then calculates the start and end coordinates for each
@@ -182,7 +184,7 @@ class GetPrimers(object):
         csv_file = BedTool('%s.csv' % self.filename)
         csv_file.saveas('%s.bed' % self.filename)
 
-        # Removes unnecessary files and moves BED file into shared folder.
+        # Removes unnecessary files and moves BED file into shared folder. (add /tests for unit testing)
         os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/primerdb/%s.csv" % self.filename)
         os.system(
             "mv /home/cuser/PycharmProjects/djangobook/mysite/primerdb/%s.bed /media/sf_sarah_share/bedfiles" %
