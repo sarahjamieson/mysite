@@ -64,10 +64,7 @@ def excel_to_db(excel_file):
     """
     db = 'primers.db.sqlite3'
     ets = GetPrimers(excel_file, db)
-    ets.make_csv()
-    ets.to_db()
-    os.system("rm %s" % excel_file)
-    os.system("rm primerseqs.csv")
+    ets.all()
 
 
 def db_confirm(request):
