@@ -2,7 +2,46 @@ from django.shortcuts import render
 from primerdb.models import Primers, Genes, PrimerTable, SNPTable, SNPs
 from primerdb.forms import UploadFileForm
 from getprimers import GetPrimers
+from django.template import RequestContext
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
 import os
+
+'''
+def login_form(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponseRedirect("primerdatabase/")
+        else:
+            messages.add_message(request, messages.ERROR, 'Account disabled.')
+    else:
+        messages.add_message(request, messages.ERROR, 'Invalid login.')
+    return render(request, 'primerdb/login.html')
+'''
+
+
+def user_login(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/primerdatabase/')
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'primerdb/login.html', {}, context)
 
 
 def primerdatabase(request):

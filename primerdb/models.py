@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 import django_tables2 as table
 from django_tables2 import A
+from django.contrib.auth.models import User
 
 
 class Primers(models.Model):
@@ -97,4 +98,10 @@ class Genes(models.Model):
         db_table = 'Genes'
         ordering = ['gene', 'gene_id']
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+
+    def __unicode__(self):
+        return self.user.username
 
