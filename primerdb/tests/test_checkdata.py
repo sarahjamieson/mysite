@@ -5,13 +5,12 @@ from primerdb.checksnps import CheckSNPs
 
 
 class TestCheckData(unittest.TestCase):
-
     def setUp(self):
         df_primers = pd.read_excel('dummy_excel_errors.xlsx', header=0, parse_cols='A:M, O:X', skiprows=2,
                                    names=['Gene', 'Exon', 'Direction', 'Version', 'Primer_seq', 'Chrom', 'M13_tag',
-                                               'Batch', 'project', 'Order_date', 'Frag_size', 'anneal_temp', 'Other',
-                                               'snp_check', 'no_snps', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2',
-                                               'action_to_take', 'check_by'],
+                                          'Batch', 'project', 'Order_date', 'Frag_size', 'anneal_temp', 'Other',
+                                          'snp_check', 'no_snps', 'rs', 'hgvs', 'freq', 'ss', 'ss_proj', 'other2',
+                                          'action_to_take', 'check_by'],
                                    index_col=None)
         df_primers = df_primers.where((pd.notnull(df_primers)), None)
         self.checkprimers = CheckPrimers(df_primers)
@@ -72,6 +71,3 @@ class TestCheckData(unittest.TestCase):
     def testCheckHGVS(self):
         errors = self.checksnps.check_hgvs()
         self.assertEqual(errors, 1, msg="Expected 1 error, got: " + str(errors))
-
-
-

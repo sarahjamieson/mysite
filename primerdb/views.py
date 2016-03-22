@@ -72,4 +72,3 @@ def db_confirm(request):
         :param request:
     """
     return render(request, 'primerdb/results.html')
-

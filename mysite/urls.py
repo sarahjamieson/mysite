@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),  # use "[-\w]+" to cope with "-" in search.
     url(r'^upload_file/$', upload_file, name='upload'),
     url(r'^complete/$', db_confirm, name='complete'),
+
 ]
