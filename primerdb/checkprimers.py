@@ -125,10 +125,11 @@ class CheckPrimers(object):
     def check_chrom(self):
         """Returns the number of errors in the 'Chrom' column (should be 1-23, X or Y)."""
         check = 0
-        chromosomes = [range(1, 23), 'X', 'Y']
+        chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
+                       '18', '19', '20', '21', '22', '23', 'X', 'Y']
         for row_index, row in self.primer_df.iterrows():
             if row['Chrom'] is not None:
-                if row['Chrom'] not in chromosomes:
+                if str(row['Chrom']) not in chromosomes:
                     check += 1
                     print "Error: invalid chromosome, see row", row_index + 4, row['Chrom']
         return check
