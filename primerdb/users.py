@@ -3,12 +3,27 @@ import os
 import django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 django.setup()
+from django.contrib.auth.models import User
 
-user = authenticate(username='shjn', password='shjn00')
-if user is not None:
-    if user.is_active:
-        print "User valid, active and authenticated."
+
+def add_user():
+    username = raw_input('Enter new username: ')
+    password = raw_input('Enter new password: ')
+    user = User.objects.create_user(username=username, password=password)
+    user.save()
+    authenticate_user(username, password)
+
+
+def authenticate_user(username, password):
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            print "User valid, active and authenticated."
+        else:
+            print "Password valid but account has been disabled."
     else:
-        print "Password valid but account has been disabled."
-else:
-    print "Username and password incorrect."
+        print "Username and password incorrect."
+
+user = User.objects.get(username='shjn')
+user.set_password('shjn00')
+user.save()

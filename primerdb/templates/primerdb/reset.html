@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Reset.</title>
+</head>
+<body>
+    <h1>Password Reset</h1>
+    <p>Please enter your username and a new password.</p>
+    <form id="login_form" method="post" action="/primerdatabase/password_reset/">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td align="left">Username:</td>
+                <td align="left"><input type="text" name="username" value="" size="20"/></td>
+            </tr>
+            <tr>
+                <td align="left">Password:</td>
+                <td align="left"><input type="password" name="password" value="" size="20"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>

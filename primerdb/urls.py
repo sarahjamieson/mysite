@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from primerdb.views import primerdatabase, snp_table, upload_file, user_login, index, user_logout, \
-    audit_trail, download
+    audit_trail, download, change_password
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^logout/$', user_logout, name='logout'),
     url(r'^audit_trail/$', audit_trail, name='audit_trail'),
     url(r'^download/(?P<archived_filename>[-\w]+)', download, name='download'),
+    url(r'^password_reset/$', change_password, name='reset'),
 ]

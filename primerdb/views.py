@@ -9,6 +9,8 @@ import os
 from audittrail import AuditTrail
 import datetime
 from wsgiref.util import FileWrapper
+import re
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -21,15 +23,19 @@ def user_login(request):
         username = request.POST['username']
         request.session['user'] = username
         password = request.POST['password']
+        request.session['password'] = password
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
-                current_time = datetime.datetime.utcnow()
-                info = "Successful login"
-                login(request, user)
-                audit = AuditTrail()
-                audit.add_to_log(current_time, info, username, None)
-                return HttpResponseRedirect('/primerdatabase/')
+                if re.match('(.*)00', password):
+                    return HttpResponseRedirect('/primerdatabase/password_reset/')
+                else:
+                    current_time = datetime.datetime.utcnow()
+                    info = "Successful login"
+                    login(request, user)
+                    audit = AuditTrail()
+                    audit.add_to_log(current_time, info, username, None)
+                    return HttpResponseRedirect('/primerdatabase/')
             else:
                 current_time = datetime.datetime.utcnow()
                 info = "Failed login: account has been disabled"
@@ -45,7 +51,21 @@ def user_login(request):
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'primerdb/login.html', {})
+        return HttpResponseRedirect('/primerdatabase/')
+
+
+def change_password(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        request.session['user'] = username
+        password = request.POST['password']
+        request.session['password'] = password
+        u = User.objects.get(username=username)
+        u.set_password(password)
+        u.save()
+        return HttpResponseRedirect('/primerdatabase/')
+    else:
+        return render(request, 'primerdb/reset.html')
 
 
 def user_logout(request):
