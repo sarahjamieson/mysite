@@ -4,6 +4,7 @@ from django.db import models
 import django_tables2 as table
 from django_tables2 import A
 from django.contrib.auth.models import User
+from simple_history.models import HistoricalRecords
 
 
 class Primers(models.Model):
@@ -12,19 +13,20 @@ class Primers(models.Model):
     exon = models.CharField(max_length=3)
     direction = models.CharField(max_length=1)
     name = models.CharField(max_length=30, default='')
-    version = models.IntegerField()
+    version = models.IntegerField(blank=True, null=True)
     primer_seq = models.CharField(max_length=30)
     chrom = models.CharField(max_length=2)
     start = models.CharField(max_length=30, default=None)
     end = models.CharField(max_length=30, default=None)
-    m13_tag = models.CharField(max_length=1)
-    batch = models.CharField(max_length=30)
+    m13_tag = models.CharField(max_length=1, blank=True)
+    batch = models.CharField(max_length=30, blank=True)
     project = models.CharField(max_length=200, default="")
-    order_date = models.DateField()
-    frag_size = models.IntegerField()
-    anneal_temp = models.CharField(max_length=10)
-    other = models.CharField(max_length=200)
+    order_date = models.DateField(blank=True)
+    frag_size = models.IntegerField(blank=True)
+    anneal_temp = models.CharField(max_length=10, blank=True)
+    other = models.CharField(max_length=200, blank=True)
     no_snps = models.IntegerField(default=0)
+    history = HistoricalRecords()
 
     class Meta:
         app_label = 'primerdb'
@@ -66,6 +68,7 @@ class PrimerTable(table.Table):
     anneal_temp = table.Column(verbose_name="Annealing Temp(oC)", orderable=False, default='')
     other = table.Column(verbose_name="Other Info", orderable=False, default='')
     no_snps = table.LinkColumn('snp-table', args=[A('name')], verbose_name="Total SNPs", orderable=False, default=0)
+    history = HistoricalRecords()
 
     class Meta:
         model = Primers
@@ -105,3 +108,26 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+
+class AuditLog(models.Model):
+    ActionId = models.AutoField(primary_key=True, unique=True)
+    Datetime = models.DateTimeField()
+    Info = models.CharField(max_length=100)
+    Username = models.CharField(max_length=6)
+    Previous_file = models.CharField(max_length=200, default='')
+
+    class Meta:
+        app_label = 'primerdb'
+        db_table = 'AuditLog'
+
+
+class AuditTable(table.Table):
+    ActionId = table.Column(orderable=False, default='')
+    Datetime = table.Column(orderable=False, default='')
+    Info = table.Column(orderable=False, default='')
+    Username = table.Column(orderable=False, default='')
+    Previous_file = table.Column(orderable=False, default='')
+
+    class Meta:
+        model = AuditLog
+        fields = ('Action_id', 'Datetime', 'Info', 'Username')

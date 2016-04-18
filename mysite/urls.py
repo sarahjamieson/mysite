@@ -13,17 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-
-from primerdb.views import primerdatabase, snp_table, upload_file, db_confirm, user_login
+from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^primerdatabase/$', primerdatabase, name='home'),
-    url(r'^snps/(?P<name>[-\w]+)/$', snp_table, name='snp-table'),  # use "[-\w]+" to cope with "-" in search.
-    url(r'^upload_file/$', upload_file, name='upload'),
-    url(r'^complete/$', db_confirm, name='complete'),
-    url(r'^login/$', user_login, name='login'),
-
+    url(r'^primerdatabase/', include('primerdb.urls')),
 ]

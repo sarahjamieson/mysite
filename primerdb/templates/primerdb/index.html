@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Database</title>
+    <title>Primer database</title>
 </head>
-<body>
+
+    {% if user.is_authenticated %}
+    <p align="right"><a href="/primerdatabase/logout/">Logout</a></p>
+    <h1>Primer database</h1>
+    <p>You are logged in as : {{ user.username }}</p>
+    <br/>
+    <p>Genes currently in database:</p>
+    <ul>
+        {% for gene in genes %}
+        <li>{{ gene.gene }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/primerdatabase/upload/">Add/Update Primers</a>
+    <br/>
+    <a href="/primerdatabase/search/">Search Primers</a>
+    <br/>
+    <a href="/primerdatabase/audit_trail/">View audit log</a>
+
+    {% else %}
+    <p></p>
+    <br/>
+    <h1>Primer database</h1>
+    <p>Please login.</p>
+    <form id="login_form" method="post" action="/primerdatabase/login/">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td align="left">Username:</td>
+                <td align="left"><input type="text" name="username" value="" size="20"/></td>
+            </tr>
+            <tr>
+                <td align="left">Password:</td>
+                <td align="left"><input type="password" name="password" value="" size="20"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit"/>
+    </form>
+    {% endif %}
 
 </body>
 </html>

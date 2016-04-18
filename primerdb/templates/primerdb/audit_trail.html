@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audit Log</title>
+</head>
+<body>
+    <p align="right"><a href="/primerdatabase/">Home</a>&nbsp;<a href="/primerdatabase/logout/">Logout</a></p>
+    <h1>Log of Activities</h1>
+    {% if trails %}
+    <table style="width:100%" border="1">
+            <tr>
+                <td><b>Info</b></td>
+                <td><b>Time</b></td>
+                <td><b>Username</b></td>
+                <td><b>Previous file (if relevant)</b></td>
+            </tr>
+            {% for row in trails.rows %}
+            <tr>
+                <td>{{ row.Info }}</td>
+                <td>{{ row.Datetime }}</td>
+                <td>{{ row.Username }}</td>
+                <td>{% if 'Data updated' in row.Info %}
+                        <a href="/primerdatabase/download/{{ row.Previous_file }}">Download</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <p>No audit trails found.</p>
+    {% endif %}
+</body>
+</html>

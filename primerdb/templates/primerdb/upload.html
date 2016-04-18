@@ -5,6 +5,7 @@
     <title>Upload new excel file</title>
 </head>
 <body>
+    <p align="right"><a href="/primerdatabase/">Home</a>&nbsp;<a href="/primerdatabase/logout/">Logout</a></p>
     <h1>Add/Update Primers</h1>
     <p>Upload an excel file with primer information.</p>
     <p>Please ensure that:</p>
@@ -20,7 +21,7 @@
             </li>
         </ol>
     <!--Form to upload excel file. enctype="multipart/form-data" required to pass to form. action refers to url path.-->
-    <form enctype="multipart/form-data"  action="/upload_file/" method="post">
+    <form enctype="multipart/form-data"  action="/primerdatabase/upload/" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit"/>
