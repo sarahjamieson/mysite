@@ -24,6 +24,15 @@ def authenticate_user(username, password):
     else:
         print "Username and password incorrect."
 
-user = User.objects.get(username='shjn')
-user.set_password('shjn00')
-user.save()
+
+def change_password():
+    username = raw_input('Enter existing username: ')
+    password = raw_input('Enter new password: ')
+    user = User.objects.get(username=username)
+    user.set_password(password)
+    user.save()
+
+
+def list_all_users():
+    users = User.objects.all()
+    print users

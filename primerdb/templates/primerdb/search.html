@@ -26,10 +26,6 @@
                 <td><b>Annealing Temp (<sup>o</sup>C)</b></td>
                 <td><b>Other Info</b></td>
                 <td><b>Total SNPs</b></td>
-                <td><b>Created by</b></td>
-                <td><b>Created session</b></td>
-                <td><b>Last modified</b></td>
-                <td><b>Last session</b></td>
             </tr>
             {% for row in primers.rows %}
             <tr>
@@ -53,10 +49,6 @@
                 {% else %}
                 <td>{{ row.no_snps }}</td>
                 {% endif %}
-                <td>{{ row.created_by }}</td>
-                <td>{{ row.created_with_session_key }}</td>
-                <td>{{ row.user }}</td>
-                <td>{{ row.session }}</td>
             </tr>
             {% endfor %}
         </table>
