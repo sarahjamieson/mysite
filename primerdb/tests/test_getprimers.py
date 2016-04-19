@@ -71,4 +71,3 @@ class TestGetPrimers(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         super(TestGetPrimers, cls).tearDownClass()
-        os.system("rm /home/cuser/PycharmProjects/djangobook/mysite/primerdb/tests/primerseqs.csv")

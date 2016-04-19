@@ -2,9 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55c512dd-17b8-4245-8b6f-c59ffec665d2" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/chr14.tmp.bed" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/chr14.tmp.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/chrX.tmp.bed" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/chrX.tmp.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/Alport_example.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/MYBPC3 gene.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/MYH7 gene.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/Marfan_FBN1.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/Primer database -MYH7 gene.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/exceltodb.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerdb/tests/primerseqs.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/primerseqs.csv" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/primerdb/dummy_excel.xlsx" afterPath="$PROJECT_DIR$/primerdb/tests/dummy_excel.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primers.db.sqlite3" afterPath="$PROJECT_DIR$/primers.db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/templates/primerdb/index.html" afterPath="$PROJECT_DIR$/primerdb/templates/primerdb/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/views.py" afterPath="$PROJECT_DIR$/primerdb/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/getprimers.py" afterPath="$PROJECT_DIR$/primerdb/getprimers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/primerdb/tests/test_getprimers.py" afterPath="$PROJECT_DIR$/primerdb/tests/test_getprimers.py" />
     </list>
     <ignored path="mysite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,16 +39,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/primerdb/templates/primerdb/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.8367347">
-              <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+            <state vertical-scroll-proportion="-22.0">
+              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#6;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,6 +74,18 @@
               <caret line="94" column="13" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getprimers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.54933727">
+              <caret line="271" column="21" selection-start-line="271" selection-start-column="21" selection-end-line="271" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,7 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/primerdb/getprimers.py" />
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/audit_trail.html" />
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/primerdb_form.html" />
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/search.html" />
@@ -120,6 +146,8 @@
         <option value="$PROJECT_DIR$/primerdb/checkprimers.py" />
         <option value="$PROJECT_DIR$/primerdb/templates/primerdb/index.html" />
         <option value="$PROJECT_DIR$/primerdb/views.py" />
+        <option value="$PROJECT_DIR$/primerdb/getprimers.py" />
+        <option value="$PROJECT_DIR$/primerdb/tests/test_getprimers.py" />
       </list>
     </option>
   </component>
@@ -185,28 +213,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mysite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mysite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="primerdb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="primerdb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -215,6 +221,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/primerdb/tests" />
+      <recent name="$PROJECT_DIR$/primerdb/archived_files" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.users">
     <configuration default="false" name="users" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -415,6 +427,7 @@
             <element signature="n#style#0;n#a#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#6;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -443,7 +456,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -456,6 +471,7 @@
             <element signature="n#style#0;n#a#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#6;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -467,14 +483,6 @@
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15147266">
-          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -567,6 +575,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/primerdb/templates/primerdb/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.0">
+          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#6;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/primerdb/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -577,15 +599,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/primerdb/templates/primerdb/index.html">
+    <entry file="file://$PROJECT_DIR$/primerdb/tests/test_getprimers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8367347">
-          <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.8232819">
+          <caret line="72" column="50" selection-start-line="72" selection-start-column="50" selection-end-line="72" selection-end-column="50" />
           <folding>
-            <element signature="n#style#0;n#a#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/primerdb/getprimers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.54933727">
+          <caret line="271" column="21" selection-start-line="271" selection-start-column="21" selection-end-line="271" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>

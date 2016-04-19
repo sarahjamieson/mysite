@@ -107,7 +107,7 @@ class GetPrimers(object):
         seq_position = 0
         list_position = 0
         primer_seqs = pd.DataFrame([])
-        csv = 'primerseqs.csv'
+        csv = '%s.csv' % self.excel_file[:-5]
 
         # (1) Gets sequences, exons and directions, splits the sequences into F+R and combines into series and then csv.
         for row_index, row in df_primers.iterrows():
@@ -159,9 +159,10 @@ class GetPrimers(object):
         df_coords.insert(5, 'Direction', dirs)
 
         # Removes unnecessary files and moves BED file into shared folder. (add /primerdb/tests for unit testing)
-        os.system("rm /home/cuser/PycharmProjects/djangobook/mysitedev/primerdb/%s.csv" % bed)
-        os.system("mv /home/cuser/PycharmProjects/djangobook/mysitedev/primerdb/%s.bed /media/sf_sarah_share/bedfiles" %
+        os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s.csv" % bed)
+        os.system("mv /home/cuser/PycharmProjects/django_apps/mysite/%s.bed /media/sf_sarah_share/bedfiles" %
                   bed)
+        os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s" % csv)
 
         return df_coords
 
@@ -263,6 +264,8 @@ class GetPrimers(object):
                 writer = ExcelWriter('%s.xlsx' % archived_filename)
                 df_sql.to_excel(writer, '%s' % today_date, index=False)
                 writer.save()
+                os.system("mv /home/cuser/PycharmProjects/django_apps/mysite/%s.xlsx "
+                          "/home/cuser/PycharmProjects/django_apps/mysite/primerdb/archived_files/" % archived_filename)
 
                 curs.execute("DELETE FROM Primers WHERE Gene='%s'" % gene_name)
                 curs.execute("DELETE FROM Genes WHERE Gene='%s'" % gene_name)
@@ -292,6 +295,7 @@ class GetPrimers(object):
         df_coords = self.get_coords(df_primers)
         df_combined, gene = self.combine_coords_primers(df_coords, df_primers_dups)
         info, archived_filename = self.to_db(df_combined, gene)
+        os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s" % self.excel_file)
         return info, archived_filename
 
 
