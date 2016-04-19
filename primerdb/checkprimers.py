@@ -1,5 +1,6 @@
 class CheckPrimers(object):
     """Checks extracted Primer data for valid data entries
+
         Note:
            Checks are only performed on columns with consistent data entries.
         Args:
@@ -21,7 +22,7 @@ class CheckPrimers(object):
             for char in row['Gene']:
                 if char in specials:
                     check += 1
-                    error = "Special character found in column 'Gene', see row %s" % (row_index + 4)
+                    error = "Special character found in column 'Gene', see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_exon(self):
@@ -31,7 +32,7 @@ class CheckPrimers(object):
             for char in str(row['Exon']):
                 if char in specials:
                     check += 1
-                    error = "Special character found in column 'Exon', see row %s" % (row_index + 4)
+                    error = "Special character found in column 'Exon', see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_direction(self):
@@ -41,7 +42,7 @@ class CheckPrimers(object):
         for row_index, row in self.primer_df.iterrows():
             if row['Direction'] not in direction_list:
                 check += 1
-                error = "Invalid primer direction, see row %s" % (row_index + 4)
+                error = "Invalid primer direction, see row %s in file" % (row_index + 4)
                 error_details.append(error)
 
     def check_version(self):
@@ -51,7 +52,7 @@ class CheckPrimers(object):
             if (row['Version'] is not None) and (not isinstance(row['Version'], float)) and (
                     not isinstance(row['Version'], int)):
                 check += 1
-                error = "Version number not a valid entry, see row %s" % (row_index + 4)
+                error = "Version number not a valid entry, see row %s in file" % (row_index + 4)
                 error_details.append(error)
 
     def check_seq(self):
@@ -62,7 +63,7 @@ class CheckPrimers(object):
             for letter in row['Primer_seq'].strip():
                 if letter not in nuc_list:
                     check += 1
-                    error = "Invalid DNA primer sequence, see row %s" % (row_index + 4)
+                    error = "Invalid DNA primer sequence, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_tag(self):
@@ -72,7 +73,7 @@ class CheckPrimers(object):
         for row_index, row in self.primer_df.iterrows():
             if (row['M13_tag'] is not None) and (row['M13_tag'].upper() not in tag_list):
                 check += 1
-                error = "M13_tag not a valid entry, see row %s" % (row_index + 4)
+                error = "M13_tag not a valid entry, see row %s in file" % (row_index + 4)
                 error_details.append(error)
 
     def check_batch(self):
@@ -83,7 +84,7 @@ class CheckPrimers(object):
                 for char in row['Batch']:
                     if char in specials:
                         check += 1
-                        error = "Special character found in column 'Batch_no', see row %s" % (row_index + 4)
+                        error = "Special character found in column 'Batch_no', see row %s in file" % (row_index + 4)
                         error_details.append(error)
 
     def check_dates(self):
@@ -96,7 +97,7 @@ class CheckPrimers(object):
                     check += 0
                 else:
                     check += 1
-                    error = "Order date not a valid date, see row %s" % (row_index + 4)
+                    error = "Order date not a valid date, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_frag_size(self):
@@ -106,7 +107,7 @@ class CheckPrimers(object):
             if row['Frag_size'] is not None:
                 if (not isinstance(row['Frag_size'], float)) and (not isinstance(row['Frag_size'], int)):
                     check += 1
-                    error = "Fragment size not a valid entry, see row %s" % (row_index + 4)
+                    error = "Fragment size not a valid entry, see row %s in file" % (row_index + 4)
                     error_details.append(error)
                 elif (row['Frag_size'] < 0) or (row['Frag_size'] > 1000):
                     check += 1
@@ -121,7 +122,8 @@ class CheckPrimers(object):
                 if (isinstance(row['anneal_temp'], float)) or (isinstance(row['anneal_temp'], int)):
                     if (row['anneal_temp'] < 0) or (row['anneal_temp'] > 150):
                         check += 1
-                        error = "Annealing temperature not within acceptable range, see row %s" % (row_index + 4)
+                        error = "Annealing temperature not within acceptable range, see row %s in file" \
+                                % (row_index + 4)
                         error_details.append(error)
 
     def check_chrom(self):
@@ -132,7 +134,7 @@ class CheckPrimers(object):
             if row['Chrom'] is not None:
                 if row['Chrom'] not in chromosomes:
                     check += 1
-                    error = "Invalid chromosome, see row %s" % (row_index + 4)
+                    error = "Invalid chromosome, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_no_snps(self):
@@ -142,7 +144,7 @@ class CheckPrimers(object):
             if row['no_snps'] is not None:
                 if (not isinstance(row['no_snps'], float)) and (not isinstance(row['no_snps'], int)):
                     check += 1
-                    error = "Invalid entry in 'Total_SNPs' column, see row %s" % (row_index + 4)
+                    error = "Invalid entry in 'Total_SNPs' column, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_rs(self):
@@ -153,7 +155,7 @@ class CheckPrimers(object):
             if row['rs'] is not None:
                 if not re.match("rs(.*)", str(row['rs'])):
                     check += 1
-                    error = "Invalid dbSNP rs number, see row %s" % (row_index + 4)
+                    error = "Invalid dbSNP rs number, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_hgvs(self):
@@ -164,7 +166,7 @@ class CheckPrimers(object):
             if row['hgvs'] is not None:
                 if not re.match("c(.*)", str(row['hgvs'])):
                     check += 1
-                    error = "Invalid HGVS nomenclature, see row %s" % (row_index + 4)
+                    error = "Invalid HGVS nomenclature, see row %s in file" % (row_index + 4)
                     error_details.append(error)
 
     def check_all(self):
