@@ -8,19 +8,44 @@
     <p align="right"><a href="/primerdatabase/">Home</a>&nbsp;<a href="/primerdatabase/logout/">Logout</a></p>
     <h1>Log of Activities</h1>
     {% if trails %}
-    <table style="width:100%" border="1">
+    <style type="text/css" scoped>
+            table{
+                font-family: Calibri;
+                border: 1px solid;
+                border-color:#4863A0;
+                border-collapse: collapse;
+            }
+            table td{
+                border: 1px solid;
+                border-color:#4863A0;
+                max-width: 700px;
+            }
+            table th{
+                border: 1px solid;
+                border-color:#4863A0;
+            }
+            h1{
+                font-family: Cambria;
+                border-bottom: 5px solid;
+                border-color: #C2DFFF;
+            }
+            p{
+            font-family: Cambria;
+            }
+    </style>
+    <table width="100%">
             <tr>
-                <td><b>Info</b></td>
-                <td><b>Time</b></td>
-                <td><b>Username</b></td>
-                <td><b>Previous file (if relevant)</b></td>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Info</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Time</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Username</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Previous file (if relevant)</b></th>
             </tr>
             {% for row in trails.rows %}
             <tr>
                 <td>{{ row.Info }}</td>
-                <td>{{ row.Datetime }}</td>
-                <td>{{ row.Username }}</td>
-                <td>{% if 'Data updated' in row.Info %}
+                <td align="center">{{ row.Datetime }}</td>
+                <td align="center">{{ row.Username }}</td>
+                <td align="center">{% if 'Data updated' in row.Info %}
                         <a href="/primerdatabase/download/{{ row.Previous_file }}">Download</a>
                     {% endif %}
                 </td>

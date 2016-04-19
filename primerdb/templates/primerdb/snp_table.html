@@ -6,38 +6,58 @@
     <title>SNP Results</title>
 </head>
 <body>
+    <p align="right">
+        <a href="/primerdatabase/">Home</a>&nbsp;<a href="/primerdatabase/logout/">Logout</a>
+    </p>
+    <h1 style="font-family: Cambria">SNP results</h1>
     {% if snps %}
         <!--Need to specify ".rows" to iterate through table-->
-        <p>Found {{ snps.rows|length }} SNP{{ snps.rows|pluralize }} in this primer.</p>
-        <table style="width:100%" border="1">
+        <p style="font-family: Cambria">Found {{ snps.rows|length }} SNP{{ snps.rows|pluralize }} in this primer.</p>
+        <style type="text/css" scoped>
+            table{
+                width: 100%;
+                font-family: Calibri;
+                border: 1px solid;
+                border-color:#4863A0;
+                border-collapse: collapse;
+            }
+            table td{
+                border: 1px solid;
+                border-color:#4863A0;
+            }
+            table th{
+                border: 1px solid;
+                border-color:#4863A0;
+            }
+        </style>
+        <table>
             <tr>
-                <td><b>SNP Check Build</b></td>
-                <td><b>dbSNP rs number</b></td>
-                <td><b>HGVS</b></td>
-                <td><b>Frequency Data</b></td>
-                <td><b>ss refs</b></td>
-                <td><b>Projects creating ss refs</b></td>
-                <td><b>Other Info</b></td>
-                <td><b>Action To Be Taken</b></td>
-                <td><b>Checked by</b></td>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>SNP Check Build</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>dbSNP rs number</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>HGVS</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Frequency Data</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>ss refs</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Projects creating ss refs</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Other Info</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Action To Be Taken</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Checked by</b></th>
             </tr>
             {% for row in snps.rows %}
             <tr>
-                <td>{{ row.snp_check }}</td>
-                <td>{{ row.rs }}</td>
-                <td>{{ row.hgvs }}</td>
-                <td>{{ row.freq }}</td>
-                <td>{{ row.ss }}</td>
-                <td>{{ row.ss_proj }}</td>
-                <td>{{ row.other2 }}</td>
-                <td>{{ row.action_to_take }}</td>
-                <td>{{ row.check_by }}</td>
+                <td align="center">{{ row.snp_check }}</td>
+                <td align="center">{{ row.rs }}</td>
+                <td align="center">{{ row.hgvs }}</td>
+                <td align="center">{{ row.freq }}</td>
+                <td align="center">{{ row.ss }}</td>
+                <td align="center">{{ row.ss_proj }}</td>
+                <td align="center">{{ row.other2 }}</td>
+                <td align="center">{{ row.action_to_take }}</td>
+                <td align="center">{{ row.check_by }}</td>
             </tr>
             {% endfor %}
         </table>
     {% else %}
     <p>No primers matched your search criteria.</p>
     {% endif %}
-    <a href="/primerdatabase/">Home</a>
 </body>
 </html>

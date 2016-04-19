@@ -26,5 +26,42 @@
     {{ form }}
     <input type="submit" value="Submit"/>
     </form>
+    {% if success %}
+        <p style="color: #008000;">Primers successfully added to database.</p>
+    {% endif %}
+    {% if error %}
+        <p style="color: red;">Primers not successfully added to database.</p>
+        <p style="color: red;">Fix the following errors and retry uploading:</p>
+        <ul>
+            {% for item in error %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <style type="text/css" scoped>
+        h1{
+            font-family: Cambria;
+            border-bottom: 5px solid;
+            border-color: #C2DFFF;
+        }
+        p{
+            font-family: Cambria;
+        }
+        ol{
+            font-family: Cambria;
+            list-style-type: square;
+        }
+        input{
+            font-family: Cambria;
+        }
+        form{
+            font-family: Cambria;
+        }
+        ul{
+            font-family: Cambria;
+            list-style-type: square;
+            color: red;
+        }
+    </style>
 </body>
 </html>

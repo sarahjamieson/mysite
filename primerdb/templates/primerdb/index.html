@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Primer database</title>
 </head>
-
+<body>
     {% if user.is_authenticated %}
     <p align="right"><a href="/primerdatabase/logout/">Logout</a></p>
     <h1>Primer database</h1>
@@ -13,14 +13,36 @@
     <p>Genes currently in database:</p>
     <ul>
         {% for gene in genes %}
-        <li>{{ gene.gene }}</li>
+        <li><span>{{ gene.gene }}</span></li>
         {% endfor %}
     </ul>
-    <a href="/primerdatabase/upload/">Add/Update Primers</a>
+    <a href="/primerdatabase/upload/" style="font-family: Cambria">Add/Update Primers</a>
     <br/>
-    <a href="/primerdatabase/search/">Search Primers</a>
+    <a href="/primerdatabase/search/" style="font-family: Cambria">Search Primers</a>
     <br/>
-    <a href="/primerdatabase/audit_trail/">View audit log</a>
+    <style type="text/css" scoped>
+        h1{
+            font-family: Cambria;
+            border-bottom: 5px solid;
+            border-color: #C2DFFF;
+        }
+        p{
+            font-family: Cambria;
+        }
+        ul{
+            font-family: Cambria;
+            list-style-type: square;
+        }
+        li{
+            color: #4863A0;
+        }
+        li span{
+            color: black;
+        }
+    </style>
+    {% if request.user.is_superuser %}
+        <a href="/primerdatabase/audit_trail/" style="font-family: Cambria">View audit log</a>
+    {% endif %}
 
     {% else %}
     <p></p>
@@ -39,8 +61,22 @@
                 <td align="left"><input type="password" name="password" value="" size="20"/></td>
             </tr>
         </table>
+        <br/>
         <input type="submit" value="Submit"/>
     </form>
+    <style type="text/css" scoped>
+        h1{
+            font-family: Cambria;
+            border-bottom: 5px solid;
+            border-color: #C2DFFF;
+        }
+        p{
+            font-family: Cambria;
+        }
+        table{
+            font-family: Cambria;
+        }
+    </style>
     {% endif %}
 
 </body>

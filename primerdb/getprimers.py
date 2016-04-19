@@ -5,7 +5,6 @@ import os
 from pybedtools import BedTool
 import django
 from checkprimers import CheckPrimers
-from checksnps import CheckSNPs
 from pandas import ExcelWriter
 import datetime
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'

@@ -36,3 +36,5 @@ def change_password():
 def list_all_users():
     users = User.objects.all()
     print users
+
+add_user()

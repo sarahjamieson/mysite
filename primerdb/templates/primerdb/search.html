@@ -5,49 +5,76 @@
     <title>Primer Results</title>
 </head>
 <body>
+    <p align="right"><a href="/primerdatabase/">Home</a>&nbsp;<a href="/primerdatabase/logout/">Logout</a></p>
+    <h1>Search results</h1>
     <p>You searched for: <strong>{{ query }}</strong></p>
     {% if primers %}
     <!--Need to specify ".rows" to iterate through table-->
         <p>Found {{ primers.rows|length }} primer{{ primers.rows|pluralize }}.</p>
-        <table style="width:100%" border="1">
+        <style type="text/css" scoped>
+            table{
+                width: 100%;
+                font-family: Calibri;
+                border: 1px solid;
+                border-color:#4863A0;
+                border-collapse: collapse;
+            }
+            table td{
+                border: 1px solid;
+                border-color:#4863A0;
+            }
+            table th{
+                border: 1px solid;
+                border-color:#4863A0;
+            }
+            h1{
+                font-family: Cambria;
+                border-bottom: 5px solid;
+                border-color: #C2DFFF;
+            }
+            p{
+            font-family: Cambria;
+            }
+        </style>
+        <table>
             <tr>
-                <td><b>Exon</b></td>
-                <td><b>Direction</b></td>
-                <td><b>Version Number</b></td>
-                <td><b>Primer Sequence</b></td>
-                <td><b>Chromosome</b></td>
-                <td><b>Start coordinate</b></td>
-                <td><b>End coordinate</b></td>
-                <td><b>M13 Tagged? (Y/N)</b></td>
-                <td><b>Primer Batch Numbers</b></td>
-                <td><b>Primer Batch Test MS Project Name</b></td>
-                <td><b>Order Date</b></td>
-                <td><b>Fragment Size</b></td>
-                <td><b>Annealing Temp (<sup>o</sup>C)</b></td>
-                <td><b>Other Info</b></td>
-                <td><b>Total SNPs</b></td>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Exon</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Direction</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Version Number</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Primer Sequence</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Chromosome</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Start coordinate</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>End coordinate</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>M13 Tagged? (Y/N)</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Primer Batch Numbers</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Primer Batch Test MS Project Name</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Order Date</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Fragment Size</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Annealing Temp (<sup>o</sup>C)</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Other Info</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>Total SNPs</b></th>
             </tr>
             {% for row in primers.rows %}
             <tr>
-                <td>{{ row.exon }}</td>
-                <td>{{ row.direction }}</td>
-                <td>{{ row.version }}</td>
-                <td>{{ row.primer_seq }}</td>
-                <td>{{ row.chrom }}</td>
-                <td>{{ row.start }}</td>
-                <td>{{ row.end }}</td>
-                <td>{{ row.m13_tag }}</td>
-                <td>{{ row.batch }}</td>
-                <td>{{ row.project }}</td>
-                <td>{{ row.order_date }}</td>
-                <td>{{ row.frag_size }}</td>
-                <td>{{ row.anneal_temp }}</td>
-                <td>{{ row.other }}</td>
+                <td align="center">{{ row.exon }}</td>
+                <td align="center">{{ row.direction }}</td>
+                <td align="center">{{ row.version }}</td>
+                <td align="center">{{ row.primer_seq }}</td>
+                <td align="center">{{ row.chrom }}</td>
+                <td align="center">{{ row.start }}</td>
+                <td align="center">{{ row.end }}</td>
+                <td align="center">{{ row.m13_tag }}</td>
+                <td align="center">{{ row.batch }}</td>
+                <td align="center">{{ row.project }}</td>
+                <td align="center">{{ row.order_date }}</td>
+                <td align="center">{{ row.frag_size }}</td>
+                <td align="center">{{ row.anneal_temp }}</td>
+                <td align="center">{{ row.other }}</td>
                 <!--If no SNPs are present in primer, link to SNP table will not appear-->
                 {% if "0" in row.no_snps %}
-                <td>0</td>
+                <td align="center">0</td>
                 {% else %}
-                <td>{{ row.no_snps }}</td>
+                <td align="center">{{ row.no_snps }}</td>
                 {% endif %}
             </tr>
             {% endfor %}
@@ -55,6 +82,5 @@
     {% else %}
     <p>No primers matched your search criteria.</p>
     {% endif %}
-    <a href="/primerdatabase/">Home</a>
 </body>
 </html>
