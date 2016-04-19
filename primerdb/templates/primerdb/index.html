@@ -64,6 +64,12 @@
         <br/>
         <input type="submit" value="Submit"/>
     </form>
+    {% if error1 %}
+        <p style="color: red;">Failed login: account is disabled</p>
+    {% endif %}
+    {% if error2 %}
+        <p style="color: red;">Invalid login details.</p>
+    {% endif %}
     <style type="text/css" scoped>
         h1{
             font-family: Cambria;

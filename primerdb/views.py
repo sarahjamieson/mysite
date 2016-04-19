@@ -19,6 +19,8 @@ def index(request):
 
 
 def user_login(request):
+    error1 = False
+    error2 = False
     if request.method == 'POST':
         username = request.POST['username']
         request.session['user'] = username
@@ -42,16 +44,15 @@ def user_login(request):
                 login(request, user)
                 audit = AuditTrail()
                 audit.add_to_log(current_time, info, username, None)
-                return HttpResponse("Your account is disabled.")
+                error1 = True
         else:
             current_time = datetime.datetime.utcnow()
             info = "Failed login: incorrect details"
             audit = AuditTrail()
             audit.add_to_log(current_time, info, username, None)
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return HttpResponseRedirect('/primerdatabase/')
+            error2 = True
+    return render(request, 'primerdb/index.html', {'error1': error1, 'error2': error2})
 
 
 def change_password(request):
