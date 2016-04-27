@@ -108,6 +108,7 @@ class GetPrimers(object):
         list_position = 0
         primer_seqs = pd.DataFrame([])
         csv = '%s.csv' % self.excel_file[:-5]
+        csv = csv.replace(" ", "")
 
         # (1) Gets sequences, exons and directions, splits the sequences into F+R and combines into series and then csv.
         for row_index, row in df_primers.iterrows():
