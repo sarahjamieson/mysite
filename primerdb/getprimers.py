@@ -159,7 +159,7 @@ class GetPrimers(object):
         df_coords.insert(4, 'Exon', exons)  # not need in bed file so added after.
         df_coords.insert(5, 'Direction', dirs)
 
-        # Removes unnecessary files and moves BED file into shared folder. (add /primerdb/tests for unit testing)
+        # Removes unnecessary files and moves BED file into shared folder. (add /tests for unit testing)
         os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s.csv" % bed)
         os.system("mv /home/cuser/PycharmProjects/django_apps/mysite/%s.bed /media/sf_sarah_share/bedfiles" %
                   bed)
@@ -296,6 +296,7 @@ class GetPrimers(object):
         df_coords = self.get_coords(df_primers)
         df_combined, gene = self.combine_coords_primers(df_coords, df_primers_dups)
         info, archived_filename = self.to_db(df_combined, gene)
+        self.excel_file = self.excel_file.replace(" ", "")
         os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s" % self.excel_file)
         return info, archived_filename
 
