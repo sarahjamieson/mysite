@@ -186,5 +186,4 @@ class CheckPrimers(object):
         self.check_no_snps()
         self.check_rs()
         self.check_hgvs()
-
-        return check, error_details
+        return check, set(error_details)

@@ -296,8 +296,6 @@ class GetPrimers(object):
         df_coords = self.get_coords(df_primers)
         df_combined, gene = self.combine_coords_primers(df_coords, df_primers_dups)
         info, archived_filename = self.to_db(df_combined, gene)
-        self.excel_file = self.excel_file.replace(" ", "")
-        os.system("rm /home/cuser/PycharmProjects/django_apps/mysite/%s" % self.excel_file)
         return info, archived_filename
 
 
