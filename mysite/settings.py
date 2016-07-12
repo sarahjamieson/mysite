@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_tables2',
     'primerdb',
-    'simple_history',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -51,8 +50,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'audit_log.middleware.UserLoggingMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

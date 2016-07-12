@@ -4,7 +4,6 @@ from django.db import models
 import django_tables2 as table
 from django_tables2 import A
 from django.contrib.auth.models import User
-from simple_history.models import HistoricalRecords
 
 
 class Primers(models.Model):
@@ -26,7 +25,6 @@ class Primers(models.Model):
     anneal_temp = models.CharField(max_length=10, blank=True)
     other = models.CharField(max_length=200, blank=True)
     no_snps = models.IntegerField(default=0)
-    history = HistoricalRecords()
 
     class Meta:
         app_label = 'primerdb'
@@ -52,7 +50,7 @@ class SNPs(models.Model):
 
 
 class PrimerTable(table.Table):
-    gene = table.Column(verbose_name="Gene", orderable=False, default='')
+    gene = table.Column(verbose_name='Gene', orderable=False, default='')
     exon = table.Column(verbose_name="Exon", orderable=False, default='')
     direction = table.Column(verbose_name="Direction", orderable=False, default='')
     version = table.Column(verbose_name="Version", orderable=False, default='')
@@ -68,7 +66,6 @@ class PrimerTable(table.Table):
     anneal_temp = table.Column(verbose_name="Annealing Temp(oC)", orderable=False, default='')
     other = table.Column(verbose_name="Other Info", orderable=False, default='')
     no_snps = table.LinkColumn('snp-table', args=[A('name')], verbose_name="Total SNPs", orderable=False, default=0)
-    history = HistoricalRecords()
 
     class Meta:
         model = Primers
